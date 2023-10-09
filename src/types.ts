@@ -1,4 +1,4 @@
-import type { UserConfigExport, ConfigEnv, UserConfigFnPromise } from 'vite';
+import type { UserConfigExport, ConfigEnv, UserConfigFnPromise, UserConfig } from 'vite';
 
 type EnvFn<T> = (env: ConfigEnv) => T;
 
@@ -19,13 +19,19 @@ export interface AbstractConfigTransformer {
   transform(config: UserConfigExport): UserConfigFnPromise;
 }
 
+export interface AbstractDescriptionTransformer {
+  transform(description: Description): InnerDescription;
+}
+
+export interface AbstractBaseConfigurator {
+  handle(...args: Description[] | [...Description[], { merge: boolean }]): UserConfigFnPromise;
+}
+
+type DescriptionWithLabel = [string, UserConfigExport, UserCondition];
+type DescriptionWithoutLabel = [UserConfigExport, UserCondition];
+
 /**
  * Config that can be passed
  */
-export type Config =
-  | UserConfigExport // { ... }
-  | [UserConfigExport] // [{ ... }]
-  | [UserConfigExport, ConfigEnv['mode']] // [{ ... }, 'build']
-  | [UserConfigExport, boolean] // @example [{ ... }, true]
-  | [UserConfigExport, (env: ConfigEnv) => boolean] // [{ ... }, ({ command }) => command === 'build']
-  | [UserConfigExport, (env: ConfigEnv) => Promise<boolean>]; // [{ ... }, async ({ command }) => command === 'build']
+export type Description = DescriptionWithLabel | DescriptionWithoutLabel;
+export type InnerDescription = [EnvFn<Promise<UserConfig | null>>, string];
