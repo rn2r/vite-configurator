@@ -85,4 +85,31 @@ describe('DescriptionTransformer', () => {
     const resolved = await result;
     expect(resolved).toEqual(userConfig);
   });
+
+  it('should throw error then wrong description passed', () => {
+    const transformer = createTransformer(
+      () => Promise.resolve({}),
+      () => Promise.resolve(true)
+    );
+
+    const wrongUserDescriptions: any[] = [
+      123,
+      123n,
+      null,
+      undefined,
+      Promise.resolve({}),
+      {},
+      [],
+      [1],
+      Array.from({ length: 3 + Math.floor(Math.random() * 100) }, () => 1),
+      new Map(),
+      new Set(),
+      Symbol('test'),
+      new Date(),
+    ];
+
+    wrongUserDescriptions.forEach((description) => {
+      expect(() => transformer.transform(description)).toThrow();
+    });
+  });
 });

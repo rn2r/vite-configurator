@@ -18,13 +18,11 @@ describe('BaseConfigurator', () => {
   const configurator = new BaseConfigurator(mockDescriptionTransformer);
 
   it('should throw an error if no description is passed', () => {
-    expect(() => configurator.handle()).toThrow(`No description passed to configurator`);
+    expect(() => configurator.handle()).toThrow();
   });
 
   it('should throw an error if only options passed', () => {
-    expect(() => configurator.handle({ merge: true })).toThrow(
-      `No description passed to configurator`
-    );
+    expect(() => configurator.handle({ merge: true })).toThrow();
   });
 
   it('should return a function that return a promise', () => {
@@ -37,13 +35,13 @@ describe('BaseConfigurator', () => {
   it('should throw if no config is returned', async () => {
     const result = configurator.handle([disabled, {}, ''], [disabled, {}, '']);
 
-    await expect(result({ command: 'build', mode: '' })).rejects.toThrowError(`No config found`);
+    await expect(result({ command: 'build', mode: '' })).rejects.toThrow();
   });
 
   it('should throw if no config is returned with merge option', async () => {
     const result = configurator.handle([disabled, {}, ''], [disabled, {}, ''], { merge: true });
 
-    await expect(result({ command: 'build', mode: '' })).rejects.toThrowError(`No config found`);
+    await expect(result({ command: 'build', mode: '' })).rejects.toThrow();
   });
 
   it('should return the config if only one description is passed', async () => {

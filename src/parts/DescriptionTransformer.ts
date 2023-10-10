@@ -25,7 +25,19 @@ export class DescriptionTransformer implements AbstractDescriptionTransformer {
     this.#defaultLabel = defaultLabel;
   }
 
+  #validateDescription(description: any): void {
+    if (!Array.isArray(description)) {
+      throw new Error(`Description must be an array, got ${typeof description} instead`);
+    }
+
+    if (description.length < 2 || description.length > 3) {
+      throw new Error('Description should have 2 or 3 elements');
+    }
+  }
+
   transform(description: Description): InnerDescription {
+    this.#validateDescription(description);
+
     let label = this.#defaultLabel;
     let configuration: UserConfigExport;
     let condition: UserCondition;

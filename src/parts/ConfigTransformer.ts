@@ -24,6 +24,9 @@ export class ConfigTransformer implements AbstractConfigTransformer {
   }
 
   transform(config: UserConfigExport): UserConfigFnPromise {
+    // we don't need to validate config here, because it
+    // will be validated by Vite itself
+
     return async (env) => {
       const handled = this.#handleUserConfig(config);
       return handled(env);
