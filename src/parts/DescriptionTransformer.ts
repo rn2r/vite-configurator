@@ -5,7 +5,7 @@ import type {
   AbstractDescriptionTransformer,
   Description,
   InnerDescription,
-  UserCondition,
+  Condition,
 } from '../types';
 
 export class DescriptionTransformer implements AbstractDescriptionTransformer {
@@ -40,7 +40,7 @@ export class DescriptionTransformer implements AbstractDescriptionTransformer {
 
     let label = this.#defaultLabel;
     let configuration: UserConfigExport;
-    let condition: UserCondition;
+    let condition: Condition;
 
     if (description.length === 2) {
       const [passedConfig, passedCondition] = description;

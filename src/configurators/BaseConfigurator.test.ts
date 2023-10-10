@@ -2,14 +2,14 @@ import { mergeConfig } from 'vite';
 import { BaseConfigurator } from './BaseConfigurator';
 
 import type { UserConfig } from 'vite';
-import type { AbstractDescriptionTransformer, UserCondition } from '../types';
+import type { AbstractDescriptionTransformer, Condition } from '../types';
 
 describe('BaseConfigurator', () => {
   const enabled = 'enabled';
   const disabled = 'disabled';
 
   const mockDescriptionTransformer: AbstractDescriptionTransformer = {
-    transform: ([label, config]: [string, UserConfig, UserCondition]) => [
+    transform: ([label, config]: [string, UserConfig, Condition]) => [
       () => Promise.resolve(label === enabled ? config : null),
       label,
     ],

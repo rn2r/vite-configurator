@@ -2,17 +2,46 @@ import type { UserConfigExport, ConfigEnv, UserConfigFnPromise, UserConfig } fro
 
 type EnvFn<T> = (env: ConfigEnv) => T;
 
-export type ObjectCondition<T> = T | Promise<T>;
-export type FnCondition<T> = EnvFn<ObjectCondition<T>> | EnvFn<T> | EnvFn<Promise<T>>;
+type ObjectCondition<T> = T | Promise<T>;
+type FnCondition<T> = EnvFn<ObjectCondition<T>> | EnvFn<T> | EnvFn<Promise<T>>;
+type ObjectOrFnCondition<T> = ObjectCondition<T> | FnCondition<T>;
 
-export type Condition<T> = ObjectCondition<T> | FnCondition<T>;
-export type BooleanCondition = Condition<boolean>;
-export type ModeCondition = Condition<string>;
-export type UserCondition = BooleanCondition | ModeCondition;
+/**
+ * An expression whose result is determined by a boolean value
+ */
+type BooleanCondition = ObjectOrFnCondition<boolean>;
+
+/**
+ * An expression whose result is determined by a string equal to the current mode
+ */
+type ModeCondition = ObjectOrFnCondition<string>;
+
+/**
+ * Condition passed by user
+ */
+export type Condition = BooleanCondition | ModeCondition;
+
+type DescriptionWithLabel = [string, UserConfigExport, Condition];
+type DescriptionWithoutLabel = [UserConfigExport, Condition];
+
+/**
+ * Description passed by user
+ */
+export type Description = DescriptionWithLabel | DescriptionWithoutLabel;
+
+/**
+ * Every condition is transformed to async function that returns boolean
+ */
 export type InnerCondition = EnvFn<Promise<boolean>>;
+/**
+ * Every inner description combined user's config and condition
+ * to a single async function that returns user's config or null,
+ * depending on the condition result
+ */
+export type InnerDescription = [EnvFn<Promise<UserConfig | null>>, string];
 
 export interface AbstractConditionTransformer {
-  transform(condition: UserCondition): InnerCondition;
+  transform(condition: Condition): InnerCondition;
 }
 
 export interface AbstractConfigTransformer {
@@ -26,12 +55,3 @@ export interface AbstractDescriptionTransformer {
 export interface AbstractBaseConfigurator {
   handle(...args: Description[] | [...Description[], { merge: boolean }]): UserConfigFnPromise;
 }
-
-type DescriptionWithLabel = [string, UserConfigExport, UserCondition];
-type DescriptionWithoutLabel = [UserConfigExport, UserCondition];
-
-/**
- * Config that can be passed
- */
-export type Description = DescriptionWithLabel | DescriptionWithoutLabel;
-export type InnerDescription = [EnvFn<Promise<UserConfig | null>>, string];

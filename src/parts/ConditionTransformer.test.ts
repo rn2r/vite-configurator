@@ -1,13 +1,13 @@
 import { ConditionTransformer } from './ConditionTransformer';
 
 import type { ConfigEnv } from 'vite';
-import type { UserCondition } from '../types';
+import type { Condition } from '../types';
 
 describe('ConditionTransformer', () => {
   const transformer = new ConditionTransformer();
   const passedEnv: ConfigEnv = { mode: 'development', command: 'serve' };
 
-  const testTransform = async (condition: UserCondition, expected: boolean = false) => {
+  const testTransform = async (condition: Condition, expected: boolean = false) => {
     const transformedCondition = transformer.transform(condition);
     expect(transformedCondition).toBeInstanceOf(Function);
 

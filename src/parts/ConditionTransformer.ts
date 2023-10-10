@@ -1,7 +1,7 @@
 import { isPromise } from '../helpers/isPromise';
 
 import type { ConfigEnv } from 'vite';
-import type { AbstractConditionTransformer, InnerCondition, UserCondition } from '../types';
+import type { AbstractConditionTransformer, InnerCondition, Condition } from '../types';
 
 export class ConditionTransformer implements AbstractConditionTransformer {
   #validate(condition: any, params: { allowed: string[]; mayBePromise?: boolean }): void {
@@ -43,7 +43,7 @@ export class ConditionTransformer implements AbstractConditionTransformer {
     return typeof condition === 'boolean' ? condition : env.mode === condition;
   }
 
-  #handleCondition(condition: UserCondition): InnerCondition {
+  #handleCondition(condition: Condition): InnerCondition {
     if (typeof condition === 'boolean' || typeof condition === 'string') {
       return (env) => {
         const result = this.#handlePrimitiveCondition(condition, env);
@@ -68,7 +68,7 @@ export class ConditionTransformer implements AbstractConditionTransformer {
     return (env) => this.#handlePromiseCondition(condition, env);
   }
 
-  transform(condition: UserCondition): InnerCondition {
+  transform(condition: Condition): InnerCondition {
     this.#validateCondition(condition);
 
     return (env) => {
