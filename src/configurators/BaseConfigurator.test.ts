@@ -32,16 +32,16 @@ describe('BaseConfigurator', () => {
     expect(result({ command: 'build', mode: '' })).toBeInstanceOf(Promise);
   });
 
-  it('should throw if no config is returned', async () => {
+  it('should resolve empty config if no one config matched', async () => {
     const result = configurator.handle([disabled, {}, ''], [disabled, {}, '']);
 
-    await expect(result({ command: 'build', mode: '' })).rejects.toThrow();
+    await expect(result({ command: 'build', mode: '' })).resolves.toEqual({});
   });
 
-  it('should throw if no config is returned with merge option', async () => {
+  it('should resolve empty config if no one config matched with merge option', async () => {
     const result = configurator.handle([disabled, {}, ''], [disabled, {}, ''], { merge: true });
 
-    await expect(result({ command: 'build', mode: '' })).rejects.toThrow();
+    await expect(result({ command: 'build', mode: '' })).resolves.toEqual({});
   });
 
   it('should return the config if only one description is passed', async () => {

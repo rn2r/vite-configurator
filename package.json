@@ -20,7 +20,8 @@
     "prettier": "^3.0.3",
     "ts-jest": "^29.1.1",
     "typescript": "^5.2.2",
-    "vite": "^4.4.11"
+    "vite": "^4.4.11",
+    "vite-plugin-svgr": "^4.1.0"
   },
   "peerDependencies": {
     "vite": "^3.0.0"

@@ -55,6 +55,7 @@ export class DescriptionTransformer implements AbstractDescriptionTransformer {
 
     const innerCondition = this.#conditionTransformer.transform(condition);
     const innerConfig = this.#configTransformer.transform(configuration);
+
     const checkAndGetConfig: InnerDescription[0] = async (env) => {
       const result = await innerCondition(env);
 

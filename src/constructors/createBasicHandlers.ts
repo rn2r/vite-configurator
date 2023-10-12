@@ -39,11 +39,10 @@ export const createBasicHandlers = (params: Params) => {
 
   const configurator = new BaseConfigurator(descriptionTransformer);
 
-  const applyConfig = configurator.handle.bind(configurator);
   const applySingleConfig = (...descriptions: Description[]) =>
-    configurator.handle(...descriptions);
+    configurator.handle(...descriptions, { merge: false });
   const applyMergedConfig = (...descriptions: Description[]) =>
     configurator.handle(...descriptions, { merge: true });
 
-  return { applyConfig, applySingleConfig, applyMergedConfig };
+  return { applySingleConfig, applyMergedConfig };
 };

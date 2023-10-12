@@ -101,7 +101,7 @@ describe('DescriptionTransformer', () => {
       {},
       [],
       [1],
-      Array.from({ length: 3 + Math.floor(Math.random() * 100) }, () => 1),
+      Array.from({ length: 4 + Math.floor(Math.random() * 100) }, () => 1),
       new Map(),
       new Set(),
       Symbol('test'),

@@ -51,19 +51,21 @@ export class BaseConfigurator implements AbstractBaseConfigurator {
       let idx = 0;
 
       const lookForConfig = () =>
-        new Promise<void>((resolve) => {
+        new Promise<void>((resolve, reject) => {
           const description = descriptions[idx];
 
           if (description) {
             const [tryConfig] = description;
 
-            tryConfig(env).then((config) => {
-              if (config) {
-                configs.push(config);
-              }
-              idx += 1;
-              lookForConfig().then(resolve);
-            });
+            tryConfig(env)
+              .then((config) => {
+                if (config) {
+                  configs.push(config);
+                }
+                idx += 1;
+                lookForConfig().then(resolve).catch(reject);
+              })
+              .catch(reject);
           } else {
             resolve();
           }
@@ -72,7 +74,7 @@ export class BaseConfigurator implements AbstractBaseConfigurator {
       await lookForConfig();
 
       if (configs.length === 0) {
-        throw new Error('No config found');
+        return {};
       }
 
       if (configs.length === 1) {
@@ -94,16 +96,18 @@ export class BaseConfigurator implements AbstractBaseConfigurator {
           if (description) {
             const [tryConfig] = description;
 
-            tryConfig(env).then((config) => {
-              if (config) {
-                resolve(config);
-              } else {
-                idx += 1;
-                lookForConfig().then(resolve).catch(reject);
-              }
-            });
+            tryConfig(env)
+              .then((config) => {
+                if (config) {
+                  resolve(config);
+                } else {
+                  idx += 1;
+                  lookForConfig().then(resolve).catch(reject);
+                }
+              })
+              .catch(reject);
           } else {
-            reject(new Error('No config found'));
+            resolve({});
           }
         });
 
