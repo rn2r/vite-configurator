@@ -60,7 +60,7 @@ describe('applyConfig', () => {
   });
 
   it('should correct handle all valid ways to get condition (true)', async () => {
-    const conditions = getValidConditions(true, 'production');
+    const conditions = getValidConditions(true, 'build');
 
     const checkCondition = async (condition: Condition) => {
       const define = getDefine([{ base: 'dir' }, condition]);

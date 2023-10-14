@@ -1,15 +1,23 @@
 import { isPromise } from 'helpers/isPromise';
 
 import type { ConfigEnv } from 'vite';
-import type { AbstractConditionTransformer, InnerCondition, Condition } from 'types';
+import type { AbstractConditionTransformer, InnerCondition, Condition, DefinedRule } from 'types';
 
 export class ConditionTransformer implements AbstractConditionTransformer {
   #validate(condition: any, params: { allowed: string[]; mayBePromise?: boolean }): void {
     const { allowed, mayBePromise } = params;
 
     if (allowed.includes(typeof condition) || (mayBePromise && isPromise(condition))) {
-      return;
+      if (typeof condition !== 'string') {
+        return;
+      }
+
+      if (['dev', 'build', 'preview'].includes(condition)) {
+        return;
+      }
     }
+
+    allowed.splice(allowed.indexOf('string'), 1, 'dev', 'build', 'preview');
 
     if (mayBePromise) {
       allowed.push('promise');
@@ -32,15 +40,29 @@ export class ConditionTransformer implements AbstractConditionTransformer {
     this.#validate(result, { allowed: ['boolean', 'string'] });
   }
 
-  async #handlePromiseCondition(condition: Promise<boolean | string>, env: ConfigEnv) {
+  async #handlePromiseCondition(condition: Promise<boolean | DefinedRule>, env: ConfigEnv) {
     const conditionResult = await condition;
     this.#validatePromiseResult(conditionResult);
 
     return this.#handlePrimitiveCondition(conditionResult, env);
   }
 
-  #handlePrimitiveCondition(condition: boolean | string, env: ConfigEnv) {
-    return typeof condition === 'boolean' ? condition : env.mode === condition;
+  #handlePrimitiveCondition(condition: boolean | DefinedRule, env: ConfigEnv) {
+    const { command, mode } = env;
+
+    if (condition === 'dev') {
+      return command === 'serve' && mode === 'development';
+    }
+
+    if (condition === 'build') {
+      return command === 'build' && mode === 'production';
+    }
+
+    if (condition === 'preview') {
+      return command === 'serve' && mode === 'production';
+    }
+
+    return condition;
   }
 
   #handleCondition(condition: Condition): InnerCondition {

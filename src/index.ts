@@ -3,13 +3,15 @@ import type {
   AbstractConditionTransformer,
   Condition,
   DescriptionTuple,
+  DefinedRule,
 } from 'types';
 
 export type {
   AbstractConfigTransformer,
   AbstractConditionTransformer,
   Condition,
-  DescriptionTuple as Description,
+  DescriptionTuple,
+  DefinedRule,
 };
 
 export * from 'api';

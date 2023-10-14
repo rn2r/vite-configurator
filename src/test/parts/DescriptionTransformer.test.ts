@@ -19,7 +19,7 @@ describe('DescriptionTransformer', () => {
     const config = () => Promise.resolve({});
 
     const transformer = createTransformer(config, condition);
-    const description = transformer.transform([{}, '']);
+    const description = transformer.transform([{}, 'dev']);
 
     expect(description).toBeInstanceOf(Array);
     expect(description).toHaveLength(2);
@@ -32,7 +32,7 @@ describe('DescriptionTransformer', () => {
     const config = () => Promise.resolve({});
 
     const transformer = createTransformer(config, condition);
-    const [checkAndGetConfig] = transformer.transform([{}, '']);
+    const [checkAndGetConfig] = transformer.transform([{}, 'dev']);
 
     const result = checkAndGetConfig({ command: 'serve', mode: 'development' });
     expect(result).toBeInstanceOf(Promise);
@@ -43,7 +43,7 @@ describe('DescriptionTransformer', () => {
     const config = () => Promise.resolve({});
 
     const transformer = createTransformer(config, condition);
-    const [, label] = transformer.transform([{}, '']);
+    const [, label] = transformer.transform([{}, 'dev']);
 
     expect(label).toBe(defaultLabel);
   });
@@ -53,7 +53,7 @@ describe('DescriptionTransformer', () => {
     const config = () => Promise.resolve({});
 
     const transformer = createTransformer(config, condition);
-    const [, label] = transformer.transform(['label', {}, '']);
+    const [, label] = transformer.transform(['label', {}, 'dev']);
 
     expect(label).toBe('label');
   });
@@ -64,7 +64,7 @@ describe('DescriptionTransformer', () => {
 
     const transformer = createTransformer(config, condition);
 
-    const [checkAndGetConfig] = transformer.transform([{}, '']);
+    const [checkAndGetConfig] = transformer.transform([{}, 'dev']);
     const result = checkAndGetConfig({ command: 'serve', mode: 'development' });
     expect(result).toBeInstanceOf(Promise);
 
@@ -79,7 +79,7 @@ describe('DescriptionTransformer', () => {
 
     const transformer = createTransformer(config, condition);
 
-    const [checkAndGetConfig] = transformer.transform([{}, '']);
+    const [checkAndGetConfig] = transformer.transform([{}, 'dev']);
     const result = checkAndGetConfig({ command: 'serve', mode: 'development' });
     expect(result).toBeInstanceOf(Promise);
 

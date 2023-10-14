@@ -2,7 +2,7 @@ import { ConditionTransformer } from 'parts/ConditionTransformer';
 import { getWrongConditions } from 'test/@utils/conditions';
 
 import type { ConfigEnv } from 'vite';
-import type { Condition } from 'types';
+import type { Condition, DefinedRule } from 'types';
 
 describe('ConditionTransformer', () => {
   const transformer = new ConditionTransformer();
@@ -24,11 +24,11 @@ describe('ConditionTransformer', () => {
   });
 
   it('should transform right mode condition', async () => {
-    await testTransform('development', true);
+    await testTransform('dev', true);
   });
 
   it('should transform wrong mode condition', async () => {
-    await testTransform('production', false);
+    await testTransform('build', false);
   });
 
   it('should transform promise boolean condition', async () => {
@@ -36,11 +36,11 @@ describe('ConditionTransformer', () => {
   });
 
   it('should transform right promise mode condition', async () => {
-    await testTransform(Promise.resolve('development'), true);
+    await testTransform(Promise.resolve('dev' as DefinedRule), true);
   });
 
   it('should transform wrong promise mode condition', async () => {
-    await testTransform(Promise.resolve('production'), false);
+    await testTransform(Promise.resolve('preview' as DefinedRule), false);
   });
 
   it('should transform function right boolean condition', async () => {

@@ -1,13 +1,13 @@
-import type { Condition } from 'types';
+import type { Condition, DefinedRule } from 'types';
 
 interface GetValidConditions {
   (result: false): Condition[];
-  (result: true, mode: string): Condition[];
+  (result: true, mode: DefinedRule): Condition[];
 }
 
 export const getValidConditions: GetValidConditions = (
   result: boolean,
-  mode: string = 'FALSE_MODE'
+  mode: DefinedRule = 'dev'
 ) => [
   result,
   Promise.resolve(result),
@@ -24,6 +24,7 @@ export const getWrongConditions = (): {
   runtimeConditions: Condition[];
 } => {
   const instantConditions: any[] = [
+    '',
     123,
     123n,
     null,

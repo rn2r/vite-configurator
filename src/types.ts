@@ -12,14 +12,21 @@ type ObjectOrFnCondition<T> = ObjectCondition<T> | FnCondition<T>;
 type BooleanCondition = ObjectOrFnCondition<boolean>;
 
 /**
- * An expression whose result is determined by a string equal to the current mode
+ * dev will be true when running with command: 'serve' and mode: 'development'
+ * build will be true when running with command: 'build' and mode: 'production'
+ * preview will be true when running with command: 'serve' and mode: 'production'
  */
-type ModeCondition = ObjectOrFnCondition<string>;
+export type DefinedRule = 'dev' | 'build' | 'preview';
+
+/**
+ * An expression whose result is determined by a string equal to some defined rule
+ */
+type DefinedRuleCondition = ObjectOrFnCondition<DefinedRule>;
 
 /**
  * Condition passed by user
  */
-export type Condition = BooleanCondition | ModeCondition;
+export type Condition = BooleanCondition | DefinedRuleCondition;
 
 /**
  * Description tuple passed by user
