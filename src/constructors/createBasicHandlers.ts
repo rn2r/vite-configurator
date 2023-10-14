@@ -1,10 +1,7 @@
-import { BaseConfigurator } from '../configurators/BaseConfigurator';
-import { DescriptionTransformer } from '../parts/DescriptionTransformer';
-import type {
-  AbstractConditionTransformer,
-  AbstractConfigTransformer,
-  Description,
-} from '../types';
+import { BaseConfigurator } from 'configurators/BaseConfigurator';
+import { DescriptionTransformer } from 'parts/DescriptionTransformer';
+
+import type { AbstractConditionTransformer, AbstractConfigTransformer, Description } from 'types';
 
 type Params = {
   configTransformer: AbstractConfigTransformer;

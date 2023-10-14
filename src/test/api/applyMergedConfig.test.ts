@@ -1,11 +1,11 @@
 import { defineConfig, mergeConfig } from 'vite';
-import { mockedPlugin } from '../@utils/plugins';
-import { getValidConfigs } from '../@utils/configs';
-import { getValidConditions, getWrongConditions } from '../@utils/conditions';
-import { applyMergedConfig } from '../../api';
+import { applyMergedConfig } from 'api';
+import { mockedPlugin } from 'test/@utils/plugins';
+import { getValidConfigs } from 'test/@utils/configs';
+import { getValidConditions, getWrongConditions } from 'test/@utils/conditions';
 
 import type { UserConfig, UserConfigExport, UserConfigFnPromise } from 'vite';
-import type { Condition, Description } from '../../types';
+import type { Condition, Description } from 'types';
 
 describe('applyMergedConfig', () => {
   const getDefine = (...descriptions: Description[]) => {

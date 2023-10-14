@@ -1,4 +1,4 @@
-import { Description } from 'types';
+import type { Description } from 'types';
 
 export const getWrongDescriptions = (): Description[] => {
   const descriptions: any[] = [

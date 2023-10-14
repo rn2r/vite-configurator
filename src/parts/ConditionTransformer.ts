@@ -1,7 +1,7 @@
-import { isPromise } from '../helpers/isPromise';
+import { isPromise } from 'helpers/isPromise';
 
 import type { ConfigEnv } from 'vite';
-import type { AbstractConditionTransformer, InnerCondition, Condition } from '../types';
+import type { AbstractConditionTransformer, InnerCondition, Condition } from 'types';
 
 export class ConditionTransformer implements AbstractConditionTransformer {
   #validate(condition: any, params: { allowed: string[]; mayBePromise?: boolean }): void {

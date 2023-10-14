@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
-import { getValidConfigs } from '../@utils/configs';
-import { getValidConditions, getWrongConditions } from '../@utils/conditions';
-import { applyConfig } from '../../api';
+import { applyConfig } from 'api';
+import { getValidConfigs } from 'test/@utils/configs';
+import { getValidConditions, getWrongConditions } from 'test/@utils/conditions';
 
 import type { UserConfigExport, UserConfigFnPromise } from 'vite';
-import type { Condition, Description } from '../../types';
+import type { Condition, Description } from 'types';
 
 describe('applyConfig', () => {
   const getDefine = (...descriptions: Description[]) => {

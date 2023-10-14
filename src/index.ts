@@ -3,8 +3,8 @@ import type {
   AbstractConditionTransformer,
   Condition,
   Description,
-} from './types';
+} from 'types';
 
 export type { AbstractConfigTransformer, AbstractConditionTransformer, Condition, Description };
 
-export * from './api';
+export * from 'api';
