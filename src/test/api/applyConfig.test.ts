@@ -1,14 +1,14 @@
 import { defineConfig } from 'vite';
 import { getValidConfigs } from '../@utils/configs';
 import { getValidConditions, getWrongConditions } from '../@utils/conditions';
-import { applySingleConfig } from '../../api';
+import { applyConfig } from '../../api';
 
 import type { UserConfigExport, UserConfigFnPromise } from 'vite';
 import type { Condition, Description } from '../../types';
 
-describe('applySingleConfig', () => {
+describe('applyConfig', () => {
   const getDefine = (...descriptions: Description[]) => {
-    const appliedConfig = applySingleConfig(...descriptions);
+    const appliedConfig = applyConfig(...descriptions);
     return defineConfig(appliedConfig) as UserConfigFnPromise;
   };
 
@@ -89,7 +89,7 @@ describe('applySingleConfig', () => {
     const { instantConditions, runtimeConditions } = getWrongConditions();
 
     instantConditions.forEach((condition) => {
-      expect(() => applySingleConfig([{ base: 'dir' }, condition])).toThrow();
+      expect(() => applyConfig([{ base: 'dir' }, condition])).toThrow();
     });
 
     const checkRuntimeCondition = async (condition: Condition) => {

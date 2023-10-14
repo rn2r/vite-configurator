@@ -11,14 +11,14 @@ describe('createBasicHandlers', () => {
   };
 
   it('should return an object with functions', () => {
-    const { applyMergedConfig, applySingleConfig } = createBasicHandlers({
+    const { applyMergedConfig, applyConfig } = createBasicHandlers({
       conditionTransformer,
       configTransformer,
       defaultLabel: '',
     });
 
     expect(applyMergedConfig).toBeInstanceOf(Function);
-    expect(applySingleConfig).toBeInstanceOf(Function);
+    expect(applyConfig).toBeInstanceOf(Function);
   });
 
   describe('should throw an error if wrong params are passed', () => {

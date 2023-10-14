@@ -5,9 +5,9 @@ import { createBasicHandlers } from './constructors/createBasicHandlers';
 const configTransformer = new ConfigTransformer();
 const conditionTransformer = new ConditionTransformer();
 
-const { applySingleConfig, applyMergedConfig } = createBasicHandlers({
+const { applyConfig, applyMergedConfig } = createBasicHandlers({
   conditionTransformer,
   configTransformer,
 });
 
-export { applySingleConfig, applyMergedConfig };
+export { applyConfig, applyMergedConfig };
