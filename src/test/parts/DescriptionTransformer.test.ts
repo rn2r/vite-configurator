@@ -1,7 +1,8 @@
-import { DescriptionTransformer } from './DescriptionTransformer';
+import { DescriptionTransformer } from '../../parts/DescriptionTransformer';
+import { getWrongDescriptions } from 'test/@utils/descriptions';
 
 import type { UserConfigFnPromise } from 'vite';
-import type { InnerCondition } from '../types';
+import type { InnerCondition } from '../../types';
 
 describe('DescriptionTransformer', () => {
   const defaultLabel = 'unknown';
@@ -92,21 +93,7 @@ describe('DescriptionTransformer', () => {
       () => Promise.resolve(true)
     );
 
-    const wrongUserDescriptions: any[] = [
-      123,
-      123n,
-      null,
-      undefined,
-      Promise.resolve({}),
-      {},
-      [],
-      [1],
-      Array.from({ length: 4 + Math.floor(Math.random() * 100) }, () => 1),
-      new Map(),
-      new Set(),
-      Symbol('test'),
-      new Date(),
-    ];
+    const wrongUserDescriptions = getWrongDescriptions();
 
     wrongUserDescriptions.forEach((description) => {
       expect(() => transformer.transform(description)).toThrow();

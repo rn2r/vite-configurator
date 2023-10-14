@@ -1,7 +1,8 @@
-import { ConditionTransformer } from './ConditionTransformer';
+import { ConditionTransformer } from '../../parts/ConditionTransformer';
+import { getWrongConditions } from 'test/@utils/conditions';
 
 import type { ConfigEnv } from 'vite';
-import type { Condition } from '../types';
+import type { Condition } from '../../types';
 
 describe('ConditionTransformer', () => {
   const transformer = new ConditionTransformer();
@@ -74,52 +75,20 @@ describe('ConditionTransformer', () => {
     await testTransform(async (env: ConfigEnv) => env.mode === 'production', false);
   });
 
-  describe('should throw on wrong condition', () => {
-    const wrongConditions = [
-      123,
-      123n,
-      null,
-      undefined,
-      {},
-      [],
-      new Map(),
-      new Set(),
-      Symbol('test'),
-      new Date(),
-    ];
+  it('should throw error on all wrong ways to get condition', async () => {
+    const { instantConditions, runtimeConditions } = getWrongConditions();
 
-    const testInstantError = (condition: any) => {
+    instantConditions.forEach((condition) => {
       expect(() => transformer.transform(condition)).toThrow();
-    };
+    });
 
-    const testInstantFnError = (condition: any) => {
+    const checkRuntimeCondition = async (condition: Condition) => {
       const transformedCondition = transformer.transform(condition);
-      expect(() => transformedCondition(passedEnv)).toThrow();
+      const result = transformedCondition(passedEnv);
+
+      await expect(result).rejects.toThrow();
     };
 
-    const testPromiseError = async (condition: any) => {
-      const transformedCondition = transformer.transform(condition);
-      await expect(transformedCondition(passedEnv)).rejects.toThrow();
-    };
-
-    it('should throw on wrong "instance" condition', async () => {
-      wrongConditions.forEach(testInstantError);
-    });
-
-    it('should throw on wrong fn condition', () => {
-      wrongConditions.forEach((c) => testInstantFnError(() => c));
-    });
-
-    it('should throw on wrong promise condition', async () => {
-      await Promise.all(
-        wrongConditions.concat(() => {}).map((c) => testPromiseError(Promise.resolve(c)))
-      );
-    });
-
-    it('should throw on wrong async fn condition', async () => {
-      await Promise.all(
-        wrongConditions.concat(() => {}).map((c) => testPromiseError(() => Promise.resolve(c)))
-      );
-    });
+    await Promise.all(runtimeConditions.map(checkRuntimeCondition));
   });
 });

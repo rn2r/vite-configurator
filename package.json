@@ -2,7 +2,8 @@
   "scripts": {
     "prepare": "husky install",
     "lint": "eslint --no-ignore 'src/**/*.ts'",
-    "test": "jest"
+    "test": "jest",
+    "test-dev": "jest --watch"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.2",

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
-import { getValidConfigs } from '../helpers/configs';
-import { getValidConditions, getWrongConditions } from '../helpers/conditions';
+import { getValidConfigs } from '../@utils/configs';
+import { getValidConditions, getWrongConditions } from '../@utils/conditions';
 import { applySingleConfig } from '../../api';
 
 import type { UserConfigExport, UserConfigFnPromise } from 'vite';

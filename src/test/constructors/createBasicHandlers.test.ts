@@ -1,6 +1,6 @@
-import { createBasicHandlers } from './createBasicHandlers';
+import { createBasicHandlers } from 'constructors/createBasicHandlers';
 
-import type { AbstractConditionTransformer, AbstractConfigTransformer } from '../types';
+import type { AbstractConditionTransformer, AbstractConfigTransformer } from 'types';
 
 describe('createBasicHandlers', () => {
   const conditionTransformer: AbstractConditionTransformer = {

@@ -1,7 +1,7 @@
 import { defineConfig, mergeConfig } from 'vite';
-import { mockedPlugin } from '../helpers/plugins';
-import { getValidConfigs } from '../helpers/configs';
-import { getValidConditions, getWrongConditions } from '../helpers/conditions';
+import { mockedPlugin } from '../@utils/plugins';
+import { getValidConfigs } from '../@utils/configs';
+import { getValidConditions, getWrongConditions } from '../@utils/conditions';
 import { applyMergedConfig } from '../../api';
 
 import type { UserConfig, UserConfigExport, UserConfigFnPromise } from 'vite';

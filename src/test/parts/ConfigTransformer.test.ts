@@ -1,4 +1,4 @@
-import { ConfigTransformer } from './ConfigTransformer';
+import { ConfigTransformer } from '../../parts/ConfigTransformer';
 
 import type { ConfigEnv, UserConfig, UserConfigExport } from 'vite';
 

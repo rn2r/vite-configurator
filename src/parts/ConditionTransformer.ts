@@ -44,28 +44,33 @@ export class ConditionTransformer implements AbstractConditionTransformer {
   }
 
   #handleCondition(condition: Condition): InnerCondition {
-    if (typeof condition === 'boolean' || typeof condition === 'string') {
-      return (env) => {
-        const result = this.#handlePrimitiveCondition(condition, env);
-        return Promise.resolve(result);
-      };
+    if (isPromise(condition)) {
+      return (env) => this.#handlePromiseCondition(condition, env);
     }
 
     if (typeof condition === 'function') {
-      return (env) => {
-        const maybePromise = condition(env);
-        this.#validateFunctionResult(maybePromise);
+      return (env) =>
+        new Promise((resolve, reject) => {
+          try {
+            const maybePromise = condition(env);
+            this.#validateFunctionResult(maybePromise);
 
-        if (isPromise(maybePromise)) {
-          return this.#handlePromiseCondition(maybePromise, env);
-        }
-
-        const result = this.#handlePrimitiveCondition(maybePromise, env);
-        return Promise.resolve(result);
-      };
+            if (isPromise(maybePromise)) {
+              this.#handlePromiseCondition(maybePromise, env).then(resolve).catch(reject);
+            } else {
+              const result = this.#handlePrimitiveCondition(maybePromise, env);
+              resolve(result);
+            }
+          } catch (error) {
+            reject(error);
+          }
+        });
     }
 
-    return (env) => this.#handlePromiseCondition(condition, env);
+    return (env) => {
+      const result = this.#handlePrimitiveCondition(condition, env);
+      return Promise.resolve(result);
+    };
   }
 
   transform(condition: Condition): InnerCondition {
