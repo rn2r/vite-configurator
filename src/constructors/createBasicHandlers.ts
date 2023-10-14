@@ -1,7 +1,11 @@
 import { BaseConfigurator } from 'configurators/BaseConfigurator';
 import { DescriptionTransformer } from 'parts/DescriptionTransformer';
 
-import type { AbstractConditionTransformer, AbstractConfigTransformer, Description } from 'types';
+import type {
+  AbstractConditionTransformer,
+  AbstractConfigTransformer,
+  DescriptionTuple,
+} from 'types';
 
 type Params = {
   configTransformer: AbstractConfigTransformer;
@@ -36,9 +40,9 @@ export const createBasicHandlers = (params: Params) => {
 
   const configurator = new BaseConfigurator(descriptionTransformer);
 
-  const applyConfig = (...descriptions: Description[]) =>
+  const applyConfig = (...descriptions: DescriptionTuple[]) =>
     configurator.handle(...descriptions, { merge: false });
-  const applyMergedConfig = (...descriptions: Description[]) =>
+  const applyMergedConfig = (...descriptions: DescriptionTuple[]) =>
     configurator.handle(...descriptions, { merge: true });
 
   return { applyConfig, applyMergedConfig };

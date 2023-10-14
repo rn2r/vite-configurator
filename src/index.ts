@@ -2,9 +2,14 @@ import type {
   AbstractConfigTransformer,
   AbstractConditionTransformer,
   Condition,
-  Description,
+  DescriptionTuple,
 } from 'types';
 
-export type { AbstractConfigTransformer, AbstractConditionTransformer, Condition, Description };
+export type {
+  AbstractConfigTransformer,
+  AbstractConditionTransformer,
+  Condition,
+  DescriptionTuple as Description,
+};
 
 export * from 'api';

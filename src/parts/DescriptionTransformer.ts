@@ -3,7 +3,7 @@ import type {
   AbstractConditionTransformer,
   AbstractConfigTransformer,
   AbstractDescriptionTransformer,
-  Description,
+  DescriptionTuple,
   InnerDescription,
   Condition,
 } from 'types';
@@ -35,7 +35,7 @@ export class DescriptionTransformer implements AbstractDescriptionTransformer {
     }
   }
 
-  transform(description: Description): InnerDescription {
+  transform(description: DescriptionTuple): InnerDescription {
     this.#validateDescription(description);
 
     let label = this.#defaultLabel;

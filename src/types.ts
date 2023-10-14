@@ -21,13 +21,12 @@ type ModeCondition = ObjectOrFnCondition<string>;
  */
 export type Condition = BooleanCondition | ModeCondition;
 
-type DescriptionWithLabel = [string, UserConfigExport, Condition];
-type DescriptionWithoutLabel = [UserConfigExport, Condition];
-
 /**
- * Description passed by user
+ * Description tuple passed by user
  */
-export type Description = DescriptionWithLabel | DescriptionWithoutLabel;
+export type DescriptionTuple =
+  | [string, UserConfigExport, Condition]
+  | [UserConfigExport, Condition];
 
 /**
  * Every condition is transformed to async function that returns boolean
@@ -49,9 +48,11 @@ export interface AbstractConfigTransformer {
 }
 
 export interface AbstractDescriptionTransformer {
-  transform(description: Description): InnerDescription;
+  transform(description: DescriptionTuple): InnerDescription;
 }
 
 export interface AbstractBaseConfigurator {
-  handle(...args: Description[] | [...Description[], { merge: boolean }]): UserConfigFnPromise;
+  handle(
+    ...args: DescriptionTuple[] | [...DescriptionTuple[], { merge: boolean }]
+  ): UserConfigFnPromise;
 }

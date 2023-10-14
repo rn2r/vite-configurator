@@ -1,5 +1,5 @@
 import { DescriptionTransformer } from 'parts/DescriptionTransformer';
-import { getWrongDescriptions } from 'test/@utils/descriptions';
+import { getWrongDescriptionTuples } from 'test/@utils/descriptions';
 
 import type { UserConfigFnPromise } from 'vite';
 import type { InnerCondition } from 'types';
@@ -93,7 +93,7 @@ describe('DescriptionTransformer', () => {
       () => Promise.resolve(true)
     );
 
-    const wrongUserDescriptions = getWrongDescriptions();
+    const wrongUserDescriptions = getWrongDescriptionTuples();
 
     wrongUserDescriptions.forEach((description) => {
       expect(() => transformer.transform(description)).toThrow();

@@ -4,10 +4,10 @@ import { getValidConfigs } from 'test/@utils/configs';
 import { getValidConditions, getWrongConditions } from 'test/@utils/conditions';
 
 import type { UserConfigExport, UserConfigFnPromise } from 'vite';
-import type { Condition, Description } from 'types';
+import type { Condition, DescriptionTuple } from 'types';
 
 describe('applyConfig', () => {
-  const getDefine = (...descriptions: Description[]) => {
+  const getDefine = (...descriptions: DescriptionTuple[]) => {
     const appliedConfig = applyConfig(...descriptions);
     return defineConfig(appliedConfig) as UserConfigFnPromise;
   };

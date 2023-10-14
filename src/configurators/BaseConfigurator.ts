@@ -4,7 +4,7 @@ import type { UserConfig, UserConfigFnPromise } from 'vite';
 import type {
   AbstractBaseConfigurator,
   AbstractDescriptionTransformer,
-  Description,
+  DescriptionTuple,
   InnerDescription,
 } from 'types';
 
@@ -27,17 +27,17 @@ export class BaseConfigurator implements AbstractBaseConfigurator {
   #getDescriptionsAndMergeOptions(
     args: Parameters<AbstractBaseConfigurator['handle']>
   ): [InnerDescription[], boolean] {
-    let descriptions: Description[];
+    let descriptions: DescriptionTuple[];
     let merge = false;
 
     const lastArg = args.at(-1);
 
     if (!Array.isArray(lastArg)) {
-      descriptions = args.slice(0, -1) as Description[];
+      descriptions = args.slice(0, -1) as DescriptionTuple[];
       const options = lastArg as { merge: boolean };
       merge = options.merge;
     } else {
-      descriptions = args as Description[];
+      descriptions = args as DescriptionTuple[];
     }
 
     const innerDescriptions = descriptions.map((d) => this.#descriptionTransformer.transform(d));

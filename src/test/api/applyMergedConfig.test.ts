@@ -5,10 +5,10 @@ import { getValidConfigs } from 'test/@utils/configs';
 import { getValidConditions, getWrongConditions } from 'test/@utils/conditions';
 
 import type { UserConfig, UserConfigExport, UserConfigFnPromise } from 'vite';
-import type { Condition, Description } from 'types';
+import type { Condition, DescriptionTuple } from 'types';
 
 describe('applyMergedConfig', () => {
-  const getDefine = (...descriptions: Description[]) => {
+  const getDefine = (...descriptions: DescriptionTuple[]) => {
     const appliedConfig = applyMergedConfig(...descriptions);
     return defineConfig(appliedConfig) as UserConfigFnPromise;
   };
@@ -49,7 +49,7 @@ describe('applyMergedConfig', () => {
     const zippedConfigs = configs1.map((c1) => configs2.map((c2) => [c1, c2])).flat();
 
     const checkConfigs = async (configs: UserConfigExport[]) => {
-      const configsToDefine = configs.map((config) => [config, true]) as Description[];
+      const configsToDefine = configs.map((config) => [config, true]) as DescriptionTuple[];
       const define = getDefine(...configsToDefine);
       const result = await define({ command: 'build', mode: 'production' });
 

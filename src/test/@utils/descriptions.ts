@@ -1,6 +1,6 @@
-import type { Description } from 'types';
+import type { DescriptionTuple } from 'types';
 
-export const getWrongDescriptions = (): Description[] => {
+export const getWrongDescriptionTuples = (): DescriptionTuple[] => {
   const descriptions: any[] = [
     123,
     123n,
