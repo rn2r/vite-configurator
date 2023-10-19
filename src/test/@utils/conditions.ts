@@ -19,11 +19,8 @@ export const getValidConditions: GetValidConditions = (
   () => Promise.resolve(mode),
 ];
 
-export const getWrongConditions = (): {
-  instantConditions: Condition[];
-  runtimeConditions: Condition[];
-} => {
-  const instantConditions: any[] = [
+export const getBasicWrongConditions = (): Condition[] =>
+  [
     '',
     123,
     123n,
@@ -35,17 +32,16 @@ export const getWrongConditions = (): {
     new Set(),
     Symbol('test'),
     new Date(),
-  ];
+  ] as any[];
 
-  const runtimeConditions: any[] = instantConditions.reduce(
+export const getAllWrongConditions = (): Condition[] =>
+  getBasicWrongConditions().reduce(
     (acc, condition) =>
-      acc.concat(
+      acc.concat([
+        condition,
         Promise.resolve(condition),
         () => condition,
-        () => Promise.resolve(condition)
-      ),
-    []
+        () => Promise.resolve(condition),
+      ] as any[]),
+    [] as Condition[]
   );
-
-  return { instantConditions, runtimeConditions };
-};

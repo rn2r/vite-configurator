@@ -1,5 +1,5 @@
 import { ConditionTransformer } from 'parts/ConditionTransformer';
-import { getWrongConditions } from 'test/@utils/conditions';
+import { getAllWrongConditions } from 'test/@utils/conditions';
 
 import type { ConfigEnv } from 'vite';
 import type { Condition, DefinedRule } from 'types';
@@ -76,11 +76,7 @@ describe('ConditionTransformer', () => {
   });
 
   it('should throw error on all wrong ways to get condition', async () => {
-    const { instantConditions, runtimeConditions } = getWrongConditions();
-
-    instantConditions.forEach((condition) => {
-      expect(() => transformer.transform(condition)).toThrow();
-    });
+    const wrongConditions = getAllWrongConditions();
 
     const checkRuntimeCondition = async (condition: Condition) => {
       const transformedCondition = transformer.transform(condition);
@@ -89,6 +85,6 @@ describe('ConditionTransformer', () => {
       await expect(result).rejects.toThrow();
     };
 
-    await Promise.all(runtimeConditions.map(checkRuntimeCondition));
+    await Promise.all(wrongConditions.map(checkRuntimeCondition));
   });
 });
