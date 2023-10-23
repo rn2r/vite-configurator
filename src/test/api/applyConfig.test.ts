@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { applyConfig } from 'api';
 import { getValidConfigs } from 'test/@utils/configs';
-import { getValidConditions, getWrongConditions } from 'test/@utils/conditions';
+import { getValidConditions, getAllWrongConditions } from 'test/@utils/conditions';
 
 import type { UserConfigExport, UserConfigFnPromise } from 'vite';
 import type { Condition, DescriptionTuple } from 'types';
@@ -86,11 +86,7 @@ describe('applyConfig', () => {
   });
 
   it('should throw error on all wrong ways to get condition', async () => {
-    const { instantConditions, runtimeConditions } = getWrongConditions();
-
-    instantConditions.forEach((condition) => {
-      expect(() => applyConfig([{ base: 'dir' }, condition])).toThrow();
-    });
+    const wrongConditions = getAllWrongConditions();
 
     const checkRuntimeCondition = async (condition: Condition) => {
       const define = getDefine([{ base: 'dir' }, condition]);
@@ -99,6 +95,6 @@ describe('applyConfig', () => {
       await expect(result).rejects.toThrow();
     };
 
-    await Promise.all(runtimeConditions.map(checkRuntimeCondition));
+    await Promise.all(wrongConditions.map(checkRuntimeCondition));
   });
 });

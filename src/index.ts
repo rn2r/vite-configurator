@@ -15,3 +15,4 @@ export type {
 };
 
 export * from 'api';
+export { createBasicHandlers, createLabeledHandlers } from 'fabric';

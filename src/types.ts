@@ -36,6 +36,14 @@ export type DescriptionTuple =
   | [UserConfigExport, Condition];
 
 /**
+ * Description object passed by user
+ */
+export type DescriptionObject = {
+  config: UserConfigExport;
+  condition: Condition;
+};
+
+/**
  * Every condition is transformed to async function that returns boolean
  */
 export type InnerCondition = EnvFn<Promise<boolean>>;
@@ -63,3 +71,9 @@ export interface AbstractBaseConfigurator {
     ...args: DescriptionTuple[] | [...DescriptionTuple[], { merge: boolean }]
   ): UserConfigFnPromise;
 }
+
+export type ApiFabricParams = {
+  configTransformer: AbstractConfigTransformer;
+  conditionTransformer: AbstractConditionTransformer;
+  defaultLabel?: string;
+};

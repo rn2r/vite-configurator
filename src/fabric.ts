@@ -1,19 +1,10 @@
 import { BaseConfigurator } from 'configurators/BaseConfigurator';
+import { LabeledConfigurator } from 'configurators/LabeledConfigurator';
 import { DescriptionTransformer } from 'parts/DescriptionTransformer';
 
-import type {
-  AbstractConditionTransformer,
-  AbstractConfigTransformer,
-  DescriptionTuple,
-} from 'types';
+import type { ApiFabricParams, DescriptionObject, DescriptionTuple } from 'types';
 
-type Params = {
-  configTransformer: AbstractConfigTransformer;
-  conditionTransformer: AbstractConditionTransformer;
-  defaultLabel?: string;
-};
-
-const validateParams = (params?: Params) => {
+const validateParams = (params?: ApiFabricParams) => {
   if (!params || Object.keys(params).length === 0) {
     throw new Error('No params passed');
   }
@@ -27,9 +18,7 @@ const validateParams = (params?: Params) => {
   }
 };
 
-export const createBasicHandlers = (params: Params) => {
-  validateParams(params);
-
+const getBaseConfigurator = (params: ApiFabricParams) => {
   const { configTransformer, conditionTransformer, defaultLabel } = params;
 
   const descriptionTransformer = new DescriptionTransformer(
@@ -38,7 +27,13 @@ export const createBasicHandlers = (params: Params) => {
     defaultLabel
   );
 
-  const configurator = new BaseConfigurator(descriptionTransformer);
+  return new BaseConfigurator(descriptionTransformer);
+};
+
+export const createBasicHandlers = (params: ApiFabricParams) => {
+  validateParams(params);
+
+  const configurator = getBaseConfigurator(params);
 
   const applyConfig = (...descriptions: DescriptionTuple[]) =>
     configurator.handle(...descriptions, { merge: false });
@@ -46,4 +41,16 @@ export const createBasicHandlers = (params: Params) => {
     configurator.handle(...descriptions, { merge: true });
 
   return { applyConfig, applyMergedConfig };
+};
+
+export const createLabeledHandlers = (params: ApiFabricParams) => {
+  validateParams(params);
+
+  const baseConfigurator = getBaseConfigurator(params);
+  const configurator = new LabeledConfigurator(baseConfigurator);
+
+  const applyLabeledConfig = (descriptions: Record<string, DescriptionObject>) =>
+    configurator.handle(descriptions);
+
+  return { applyLabeledConfig };
 };
