@@ -3,6 +3,7 @@ import type {
   AbstractConditionTransformer,
   Condition,
   DescriptionTuple,
+  DescriptionObject,
   SimpleDescriptions,
   DefinedRule,
 } from 'types';
@@ -12,6 +13,7 @@ export type {
   AbstractConditionTransformer,
   Condition,
   DescriptionTuple,
+  DescriptionObject,
   SimpleDescriptions,
   DefinedRule,
 };
