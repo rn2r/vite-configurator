@@ -1,8 +1,14 @@
 import { BaseConfigurator } from 'configurators/BaseConfigurator';
 import { LabeledConfigurator } from 'configurators/LabeledConfigurator';
+import { SimpleConfigurator } from 'configurators/SimpleConfigurator';
 import { DescriptionTransformer } from 'parts/DescriptionTransformer';
 
-import type { ApiFabricParams, DescriptionObject, DescriptionTuple } from 'types';
+import type {
+  ApiFabricParams,
+  DescriptionObject,
+  DescriptionTuple,
+  SimpleDescriptions,
+} from 'types';
 
 const validateParams = (params?: ApiFabricParams) => {
   if (!params || Object.keys(params).length === 0) {
@@ -53,4 +59,15 @@ export const createLabeledHandlers = (params: ApiFabricParams) => {
     configurator.handle(descriptions);
 
   return { applyLabeledConfig };
+};
+
+export const createSimpleHandlers = (params: ApiFabricParams) => {
+  validateParams(params);
+
+  const baseConfigurator = getBaseConfigurator(params);
+  const configurator = new SimpleConfigurator(baseConfigurator);
+
+  const applySimpleConfig = (descriptions: SimpleDescriptions) => configurator.handle(descriptions);
+
+  return { applySimpleConfig };
 };

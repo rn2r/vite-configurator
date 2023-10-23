@@ -3,6 +3,7 @@ import type {
   AbstractConditionTransformer,
   Condition,
   DescriptionTuple,
+  SimpleDescriptions,
   DefinedRule,
 } from 'types';
 
@@ -11,8 +12,9 @@ export type {
   AbstractConditionTransformer,
   Condition,
   DescriptionTuple,
+  SimpleDescriptions,
   DefinedRule,
 };
 
 export * from 'api';
-export { createBasicHandlers, createLabeledHandlers } from 'fabric';
+export { createBasicHandlers, createLabeledHandlers, createSimpleHandlers } from 'fabric';

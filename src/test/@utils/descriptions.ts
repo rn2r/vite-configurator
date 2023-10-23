@@ -1,4 +1,4 @@
-import type { DescriptionObject, DescriptionTuple } from 'types';
+import type { DescriptionObject, DescriptionTuple, SimpleDescriptions } from 'types';
 
 export const getWrongDescriptionTuples = (): DescriptionTuple[] => {
   const descriptions: any[] = [
@@ -37,4 +37,13 @@ export const getWrongDescriptionObjects = (): Record<string, DescriptionObject>[
   ];
 
   return descriptions;
+};
+
+export const getWrongSimpleDescriptions = (): SimpleDescriptions[] => {
+  const baseDescriptions = getWrongDescriptionObjects() as unknown as SimpleDescriptions[];
+  return baseDescriptions.concat([
+    {
+      wrong: {},
+    } as unknown as SimpleDescriptions,
+  ]);
 };

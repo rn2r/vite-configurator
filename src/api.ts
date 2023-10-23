@@ -1,4 +1,4 @@
-import { createBasicHandlers, createLabeledHandlers } from 'fabric';
+import { createBasicHandlers, createLabeledHandlers, createSimpleHandlers } from 'fabric';
 import { ConfigTransformer } from 'parts/ConfigTransformer';
 import { ConditionTransformer } from 'parts/ConditionTransformer';
 
@@ -15,4 +15,9 @@ const { applyLabeledConfig } = createLabeledHandlers({
   configTransformer,
 });
 
-export { applyConfig, applyMergedConfig, applyLabeledConfig };
+const { applySimpleConfig } = createSimpleHandlers({
+  conditionTransformer,
+  configTransformer,
+});
+
+export { applyConfig, applyMergedConfig, applyLabeledConfig, applySimpleConfig };

@@ -44,6 +44,11 @@ export type DescriptionObject = {
 };
 
 /**
+ * User's config with usage of predefined rules
+ */
+export type SimpleDescriptions = Partial<Record<DefinedRule, UserConfigExport>>;
+
+/**
  * Every condition is transformed to async function that returns boolean
  */
 export type InnerCondition = EnvFn<Promise<boolean>>;

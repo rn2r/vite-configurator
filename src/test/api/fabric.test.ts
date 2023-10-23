@@ -1,4 +1,4 @@
-import { createBasicHandlers, createLabeledHandlers } from 'fabric';
+import { createBasicHandlers, createLabeledHandlers, createSimpleHandlers } from 'fabric';
 
 import type {
   AbstractConditionTransformer,
@@ -85,4 +85,18 @@ describe('createLabelledHandlers', () => {
   });
 
   checkErrors(createLabeledHandlers);
+});
+
+describe('createSimpleHandlers', () => {
+  it('should return an object with functions', () => {
+    const { applySimpleConfig } = createSimpleHandlers({
+      conditionTransformer,
+      configTransformer,
+      defaultLabel: '',
+    });
+
+    checkType(applySimpleConfig);
+  });
+
+  checkErrors(createSimpleHandlers);
 });
