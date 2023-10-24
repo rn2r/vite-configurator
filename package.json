@@ -1,8 +1,10 @@
 {
+  "version": "0.2.0",
   "scripts": {
     "prepare": "husky install",
     "lint": "eslint --no-ignore 'src/**/*.ts'",
-    "test": "jest"
+    "test": "jest",
+    "test-dev": "jest --watch"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.2",
@@ -20,7 +22,8 @@
     "prettier": "^3.0.3",
     "ts-jest": "^29.1.1",
     "typescript": "^5.2.2",
-    "vite": "^4.4.11"
+    "vite": "^4.4.11",
+    "vite-plugin-svgr": "^4.1.0"
   },
   "peerDependencies": {
     "vite": "^3.0.0"
