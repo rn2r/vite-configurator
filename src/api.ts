@@ -1,4 +1,10 @@
-import { createBasicHandlers, createLabeledHandlers, createSimpleHandlers } from 'fabric';
+import { mergeConfig } from 'vite';
+import {
+  createBasicHandlers,
+  createLabeledHandlers,
+  createMerge,
+  createSimpleHandlers,
+} from 'fabric';
 import { ConfigTransformer } from 'parts/ConfigTransformer';
 import { ConditionTransformer } from 'parts/ConditionTransformer';
 
@@ -20,4 +26,8 @@ const { applySimpleConfig } = createSimpleHandlers({
   configTransformer,
 });
 
-export { applyConfig, applyMergedConfig, applyLabeledConfig, applySimpleConfig };
+const { merge } = createMerge({
+  mergeConfig,
+});
+
+export { applyConfig, applyMergedConfig, applyLabeledConfig, applySimpleConfig, merge };

@@ -77,8 +77,23 @@ export interface AbstractBaseConfigurator {
   ): UserConfigFnPromise;
 }
 
-export type ApiFabricParams = {
+export interface AbstractMerger {
+  merge(...configs: [UserConfigExport, ...UserConfigExport[]]): UserConfigFnPromise;
+  merge(...args: [UserConfigExport, ...UserConfigExport[], boolean]): UserConfigFnPromise;
+}
+
+export type ConfiguratorFabricParams = {
   configTransformer: AbstractConfigTransformer;
   conditionTransformer: AbstractConditionTransformer;
   defaultLabel?: string;
+};
+
+export type MergeConfig = (
+  defaults: UserConfig,
+  overrides: UserConfig,
+  isRoot?: boolean
+) => UserConfig;
+
+export type MergerFabricParams = {
+  mergeConfig: MergeConfig;
 };

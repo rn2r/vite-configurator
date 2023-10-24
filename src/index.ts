@@ -19,4 +19,9 @@ export type {
 };
 
 export * from 'api';
-export { createBasicHandlers, createLabeledHandlers, createSimpleHandlers } from 'fabric';
+export {
+  createBasicHandlers,
+  createLabeledHandlers,
+  createSimpleHandlers,
+  createMerge,
+} from 'fabric';

@@ -1,23 +1,32 @@
-import { createBasicHandlers, createLabeledHandlers, createSimpleHandlers } from 'fabric';
+import {
+  createBasicHandlers,
+  createLabeledHandlers,
+  createMerge,
+  createSimpleHandlers,
+} from 'fabric';
 
 import type {
   AbstractConditionTransformer,
   AbstractConfigTransformer,
-  ApiFabricParams,
+  ConfiguratorFabricParams,
+  MergeConfig,
 } from 'types';
 
 const conditionTransformer: AbstractConditionTransformer = {
   transform: () => () => Promise.resolve(true),
 };
+
 const configTransformer: AbstractConfigTransformer = {
   transform: () => () => Promise.resolve({}),
 };
+
+const mergeConfig: MergeConfig = () => ({});
 
 const checkType = (fn: any) => {
   expect(fn).toBeInstanceOf(Function);
 };
 
-const checkErrors = (fabric: (params: ApiFabricParams) => any) => {
+const checkErrors = (fabric: (params: ConfiguratorFabricParams) => any) => {
   describe('should throw an error if wrong params are passed', () => {
     it('should throw an error if no configTransformer is passed', () => {
       expect(() =>
@@ -99,4 +108,22 @@ describe('createSimpleHandlers', () => {
   });
 
   checkErrors(createSimpleHandlers);
+});
+
+describe('createMerge', () => {
+  it('should return an object with functions', () => {
+    const { merge } = createMerge({
+      mergeConfig,
+    });
+
+    expect(merge).toBeInstanceOf(Function);
+  });
+
+  it('should throw an error if empty object passed', () => {
+    expect(() => createMerge({} as any)).toThrow();
+  });
+
+  it('should throw an error if no params passed', () => {
+    expect(() => createMerge(undefined as any)).toThrow();
+  });
 });
