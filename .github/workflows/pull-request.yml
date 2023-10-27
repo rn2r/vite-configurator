@@ -4,6 +4,7 @@ on: pull_request
 
 jobs:
   test-code-in-pull-request:
+    name: Test code in pull request
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
