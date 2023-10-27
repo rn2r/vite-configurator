@@ -1,5 +1,32 @@
 {
-  "version": "0.2.0",
+  "name": "vite-configurator",
+  "version": "0.3.0",
+  "description": "Manage vite configurations with ease",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/test"
+  ],
+  "homepage": "https://github.com/rn2r/vite-configurator#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rn2r/vite-configurator"
+  },
+  "bugs": {
+    "url": "https://github.com/rn2r/vite-configurator/issues"
+  },
+  "author": "Pavel Ostashkin <rn2r@proton.me> (https://github.com/rn2r)",
+  "keywords": [
+    "vite",
+    "config",
+    "configuration",
+    "configurations",
+    "vite-configurations",
+    "merge"
+  ],
   "scripts": {
     "prepare": "husky install",
     "build": "rimraf dist && mkdirp dist && rollup -c",
