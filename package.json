@@ -5,7 +5,8 @@
     "build": "rimraf dist && mkdirp dist && rollup -c",
     "lint": "eslint --no-ignore 'src/**/*.ts'",
     "test": "jest",
-    "test-dev": "jest --watch"
+    "test-dev": "jest --watch",
+    "test-coverage": "jest --coverage"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.2",
@@ -15,6 +16,7 @@
     "@types/jest": "^29.5.5",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
+    "coveralls": "^3.1.1",
     "eslint": "^8.51.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.1.0",

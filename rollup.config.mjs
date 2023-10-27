@@ -9,4 +9,5 @@ export default {
     format: 'es',
   },
   plugins: [terser(), typescript()],
+  external: ['vite'],
 }
