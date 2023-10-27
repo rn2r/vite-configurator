@@ -5,7 +5,8 @@
     "build": "rimraf dist && mkdirp dist && rollup -c",
     "lint": "eslint --no-ignore 'src/**/*.ts'",
     "test": "jest",
-    "test-dev": "jest --watch"
+    "test-dev": "jest --watch",
+    "test-coverage": "jest --coverage"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.7.2",
