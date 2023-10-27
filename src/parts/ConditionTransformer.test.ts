@@ -1,13 +1,14 @@
-import { ConditionTransformer } from './ConditionTransformer';
+import { ConditionTransformer } from 'parts/ConditionTransformer';
+import { getAllWrongConditions } from 'test/@utils/conditions';
 
 import type { ConfigEnv } from 'vite';
-import type { UserCondition } from '../types';
+import type { Condition, DefinedRule } from 'types';
 
 describe('ConditionTransformer', () => {
   const transformer = new ConditionTransformer();
   const passedEnv: ConfigEnv = { mode: 'development', command: 'serve' };
 
-  const testTransform = async (condition: UserCondition, expected: boolean) => {
+  const testTransform = async (condition: Condition, expected: boolean = false) => {
     const transformedCondition = transformer.transform(condition);
     expect(transformedCondition).toBeInstanceOf(Function);
 
@@ -23,11 +24,11 @@ describe('ConditionTransformer', () => {
   });
 
   it('should transform right mode condition', async () => {
-    await testTransform('development', true);
+    await testTransform('dev', true);
   });
 
   it('should transform wrong mode condition', async () => {
-    await testTransform('production', false);
+    await testTransform('build', false);
   });
 
   it('should transform promise boolean condition', async () => {
@@ -35,11 +36,11 @@ describe('ConditionTransformer', () => {
   });
 
   it('should transform right promise mode condition', async () => {
-    await testTransform(Promise.resolve('development'), true);
+    await testTransform(Promise.resolve('dev' as DefinedRule), true);
   });
 
   it('should transform wrong promise mode condition', async () => {
-    await testTransform(Promise.resolve('production'), false);
+    await testTransform(Promise.resolve('preview' as DefinedRule), false);
   });
 
   it('should transform function right boolean condition', async () => {
@@ -72,5 +73,18 @@ describe('ConditionTransformer', () => {
 
   it('should transform async function wrong mode condition', async () => {
     await testTransform(async (env: ConfigEnv) => env.mode === 'production', false);
+  });
+
+  it('should throw error on all wrong ways to get condition', async () => {
+    const wrongConditions = getAllWrongConditions();
+
+    const checkRuntimeCondition = async (condition: Condition) => {
+      const transformedCondition = transformer.transform(condition);
+      const result = transformedCondition(passedEnv);
+
+      await expect(result).rejects.toThrow();
+    };
+
+    await Promise.all(wrongConditions.map(checkRuntimeCondition));
   });
 });
