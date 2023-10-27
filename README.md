@@ -4,7 +4,7 @@ vite-configurator
 <br>
 </h1>
 
-<p>Only tool you need to manage your vite configurations</p>
+<p>Manage vite configurations with ease</p>
 
 </div>
 
