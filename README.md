@@ -4,6 +4,7 @@ vite-configurator
 <br>
 </h1>
 
+<p>Work in progress. Can be unstable.</p>
 <p>Manage vite configurations with ease</p>
 
 </div>
