@@ -1,80 +1,68 @@
-import { isPromise } from '../helpers/isPromise';
+import { isPromise } from 'helpers/isPromise';
+import { getConditionValidator } from 'helpers/getConditionValidator';
 
 import type { ConfigEnv } from 'vite';
-import type { AbstractConditionTransformer, InnerCondition, UserCondition } from '../types';
+import type { AbstractConditionTransformer, InnerCondition, Condition, DefinedRule } from 'types';
 
 export class ConditionTransformer implements AbstractConditionTransformer {
-  #getConditionType(condition: UserCondition) {
-    if (typeof condition === 'boolean' || typeof condition === 'string') {
-      return 'boolean';
-    }
+  #validator: ReturnType<typeof getConditionValidator>;
 
-    if (typeof condition === 'function') {
-      return 'function';
-    }
-
-    if (isPromise(condition)) {
-      return 'promise';
-    }
-
-    return 'unknown';
+  constructor() {
+    this.#validator = getConditionValidator();
   }
 
-  async #handlePromiseCondition(condition: Promise<boolean | string>, env: ConfigEnv) {
-    const conditionResult = await condition;
-    return this.#handlePrimitiveCondition(conditionResult, env);
-  }
+  #handlePrimitiveCondition(condition: boolean | DefinedRule, env: ConfigEnv) {
+    const { command, mode } = env;
 
-  #handleBooleanCondition(condition: boolean) {
+    if (condition === 'dev') {
+      return command === 'serve' && mode === 'development';
+    }
+
+    if (condition === 'build') {
+      return command === 'build' && mode === 'production';
+    }
+
+    if (condition === 'preview') {
+      return command === 'serve' && mode === 'production';
+    }
+
     return condition;
   }
 
-  #handleModeCondition(condition: string, env: ConfigEnv) {
-    return env.mode === condition;
+  async #handlePromiseCondition(condition: Promise<boolean | DefinedRule>, env: ConfigEnv) {
+    const conditionResult = await condition;
+    this.#validator.validatePromiseResult(conditionResult);
+
+    return this.#handlePrimitiveCondition(conditionResult, env);
   }
 
-  #handlePrimitiveCondition(condition: boolean | string, env: ConfigEnv) {
-    if (typeof condition === 'boolean') {
-      return this.#handleBooleanCondition(condition);
+  async #handleFnCondition(
+    condition: (env: ConfigEnv) => boolean | DefinedRule | Promise<boolean | DefinedRule>,
+    env: ConfigEnv
+  ) {
+    const maybePromise = condition(env);
+    this.#validator.validateFunctionResult(maybePromise);
+
+    if (isPromise(maybePromise)) {
+      return this.#handlePromiseCondition(maybePromise, env);
     }
 
-    return this.#handleModeCondition(condition, env);
+    return this.#handlePrimitiveCondition(maybePromise, env);
   }
 
-  #handleCondition(condition: UserCondition): InnerCondition {
-    if (typeof condition === 'boolean' || typeof condition === 'string') {
-      return (env) => {
-        const result = this.#handlePrimitiveCondition(condition, env);
-        return Promise.resolve(result);
-      };
-    }
+  transform(condition: Condition): InnerCondition {
+    return async (env) => {
+      this.#validator.validateCondition(condition);
 
-    if (typeof condition === 'function') {
-      return (env) => {
-        const maybePromise = condition(env);
+      if (isPromise(condition)) {
+        return this.#handlePromiseCondition(condition, env);
+      }
 
-        if (isPromise(maybePromise)) {
-          return this.#handlePromiseCondition(maybePromise, env);
-        }
+      if (typeof condition === 'function') {
+        return this.#handleFnCondition(condition, env);
+      }
 
-        return this.#handlePromiseCondition(Promise.resolve(maybePromise), env);
-      };
-    }
-
-    if (isPromise(condition)) {
-      return (env) => {
-        const result = this.#handlePromiseCondition(condition, env);
-        return result;
-      };
-    }
-
-    throw new Error(`Unknown condition type: ${this.#getConditionType(condition)}`);
-  }
-
-  transform(condition: UserCondition): InnerCondition {
-    return (env) => {
-      const handled = this.#handleCondition(condition);
-      return handled(env);
+      return this.#handlePrimitiveCondition(condition, env);
     };
   }
 }

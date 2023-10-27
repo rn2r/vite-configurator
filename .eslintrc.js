@@ -19,8 +19,13 @@ module.exports = {
     'lint-staged.config.js',
     'prettier.config.js',
     'jest.config.js',
+    "rollup.config.mjs",
   ],
   rules: {
     'import/prefer-default-export': 0,
+    'import/order': 0,
+    'class-methods-use-this': 0,
+    'no-restricted-syntax': 0,
+    'no-continue': 0
   },
 };

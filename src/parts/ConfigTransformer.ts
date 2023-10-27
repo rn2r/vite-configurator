@@ -1,7 +1,7 @@
-import { isPromise } from '../helpers/isPromise';
+import { isPromise } from 'helpers/isPromise';
 
 import type { UserConfigFnPromise, UserConfigExport, ConfigEnv, UserConfig } from 'vite';
-import type { AbstractConfigTransformer } from '../types';
+import type { AbstractConfigTransformer } from 'types';
 
 export class ConfigTransformer implements AbstractConfigTransformer {
   #handlePromise(config: UserConfig | Promise<UserConfig>) {
@@ -24,6 +24,9 @@ export class ConfigTransformer implements AbstractConfigTransformer {
   }
 
   transform(config: UserConfigExport): UserConfigFnPromise {
+    // we don't need to validate config here, because it
+    // will be validated by Vite itself
+
     return async (env) => {
       const handled = this.#handleUserConfig(config);
       return handled(env);
