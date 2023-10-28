@@ -6,7 +6,7 @@ import type {
   AbstractDescriptionTransformer,
   DescriptionTuple,
   InnerDescription,
-} from 'types';
+} from '../types';
 
 export class BaseConfigurator implements AbstractBaseConfigurator {
   #descriptionTransformer: AbstractDescriptionTransformer;

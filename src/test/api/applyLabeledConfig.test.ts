@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
-import { applyLabeledConfig } from 'api';
-import { getValidConfigs } from 'test/@utils/configs';
-import { getValidConditions, getAllWrongConditions } from 'test/@utils/conditions';
+import { getValidConfigs } from '../@utils/configs';
+import { getValidConditions, getAllWrongConditions } from '../@utils/conditions';
+import { applyLabeledConfig } from '../../api';
 
 import type { UserConfigExport, UserConfigFnPromise } from 'vite';
-import type { Condition, DescriptionObject } from 'types';
+import type { Condition, DescriptionObject } from '../../types';
 
 describe('applyLabeledConfig', () => {
   const getDefine = (descriptions: Record<string, DescriptionObject>) => {

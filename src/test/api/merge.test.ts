@@ -1,6 +1,8 @@
-import { merge } from 'api';
-import { getWrongConfigs } from 'test/@utils/configs';
-import { UserConfig, UserConfigExport, mergeConfig } from 'vite';
+import { mergeConfig } from 'vite';
+import { getWrongConfigs } from '../@utils/configs';
+import { merge } from '../../api';
+
+import type { UserConfig, UserConfigExport } from 'vite';
 
 describe('merge', () => {
   const config1: UserConfig = { base: 'dir' };

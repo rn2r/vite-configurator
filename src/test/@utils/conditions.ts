@@ -1,4 +1,4 @@
-import type { Condition, DefinedRule } from 'types';
+import type { Condition, DefinedRule } from '../../types';
 
 interface GetValidConditions {
   (result: false): Condition[];

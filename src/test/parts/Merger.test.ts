@@ -1,6 +1,6 @@
 import { mergeConfig } from 'vite';
-import { Merger } from 'parts/Merger';
-import { getWrongConfigs } from 'test/@utils/configs';
+import { getWrongConfigs } from '../@utils/configs';
+import { Merger } from '../../parts/Merger';
 
 import type { UserConfig, UserConfigExport } from 'vite';
 

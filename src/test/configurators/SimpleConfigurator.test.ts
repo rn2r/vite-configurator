@@ -1,7 +1,7 @@
-import { SimpleConfigurator } from 'configurators/SimpleConfigurator';
-import { getWrongSimpleDescriptions } from 'test/@utils/descriptions';
+import { getWrongSimpleDescriptions } from '../@utils/descriptions';
+import { SimpleConfigurator } from '../../configurators/SimpleConfigurator';
 
-import type { AbstractBaseConfigurator, SimpleDescriptions } from 'types';
+import type { AbstractBaseConfigurator, SimpleDescriptions } from '../../types';
 
 describe('LabeledConfigurator', () => {
   const handle = jest.fn(() => () => Promise.resolve({}));

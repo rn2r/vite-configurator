@@ -1,7 +1,7 @@
-import { isObject } from 'helpers/isObject';
 import { ExtendedConfigurator } from './ExtendedConfigurator';
+import { isObject } from '../helpers/isObject';
 
-import type { AbstractBaseConfigurator, DescriptionObject } from 'types';
+import type { AbstractBaseConfigurator, DescriptionObject } from '../types';
 
 export class LabeledConfigurator extends ExtendedConfigurator<[Record<string, DescriptionObject>]> {
   protected validate(descriptions: Record<string, DescriptionObject>): void {

@@ -1,6 +1,6 @@
 import { UserConfigFnPromise } from 'vite';
 
-import type { AbstractBaseConfigurator } from 'types';
+import type { AbstractBaseConfigurator } from '../types';
 
 export abstract class ExtendedConfigurator<A extends any[]> {
   #configurator: AbstractBaseConfigurator;

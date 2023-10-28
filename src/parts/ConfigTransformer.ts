@@ -1,7 +1,7 @@
-import { isPromise } from 'helpers/isPromise';
+import { isPromise } from '../helpers/isPromise';
 
 import type { UserConfigFnPromise, UserConfigExport, ConfigEnv, UserConfig } from 'vite';
-import type { AbstractConfigTransformer } from 'types';
+import type { AbstractConfigTransformer } from '../types';
 
 export class ConfigTransformer implements AbstractConfigTransformer {
   #handlePromise(config: UserConfig | Promise<UserConfig>) {

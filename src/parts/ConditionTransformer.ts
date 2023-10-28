@@ -1,8 +1,13 @@
-import { isPromise } from 'helpers/isPromise';
-import { getConditionValidator } from 'helpers/getConditionValidator';
+import { isPromise } from '../helpers/isPromise';
+import { getConditionValidator } from '../helpers/getConditionValidator';
 
 import type { ConfigEnv } from 'vite';
-import type { AbstractConditionTransformer, InnerCondition, Condition, DefinedRule } from 'types';
+import type {
+  AbstractConditionTransformer,
+  InnerCondition,
+  Condition,
+  DefinedRule,
+} from '../types';
 
 export class ConditionTransformer implements AbstractConditionTransformer {
   #validator: ReturnType<typeof getConditionValidator>;

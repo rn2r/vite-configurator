@@ -1,8 +1,8 @@
 import { mergeConfig } from 'vite';
-import { BaseConfigurator } from 'configurators/BaseConfigurator';
+import { BaseConfigurator } from '../../configurators/BaseConfigurator';
 
 import type { UserConfig } from 'vite';
-import type { AbstractDescriptionTransformer, Condition } from 'types';
+import type { AbstractDescriptionTransformer, Condition } from '../../types';
 
 describe('BaseConfigurator', () => {
   const enabled = 'enabled';

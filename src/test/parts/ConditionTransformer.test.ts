@@ -1,8 +1,8 @@
-import { ConditionTransformer } from 'parts/ConditionTransformer';
-import { getAllWrongConditions } from 'test/@utils/conditions';
+import { getAllWrongConditions } from '../@utils/conditions';
+import { ConditionTransformer } from '../../parts/ConditionTransformer';
 
 import type { ConfigEnv } from 'vite';
-import type { Condition, DefinedRule } from 'types';
+import type { Condition, DefinedRule } from '../../types';
 
 describe('ConditionTransformer', () => {
   const transformer = new ConditionTransformer();
