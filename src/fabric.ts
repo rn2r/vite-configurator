@@ -1,8 +1,8 @@
-import { BaseConfigurator } from 'configurators/BaseConfigurator';
-import { LabeledConfigurator } from 'configurators/LabeledConfigurator';
-import { SimpleConfigurator } from 'configurators/SimpleConfigurator';
-import { DescriptionTransformer } from 'parts/DescriptionTransformer';
-import { Merger } from 'parts/Merger';
+import { BaseConfigurator } from './configurators/BaseConfigurator';
+import { LabeledConfigurator } from './configurators/LabeledConfigurator';
+import { SimpleConfigurator } from './configurators/SimpleConfigurator';
+import { DescriptionTransformer } from './parts/DescriptionTransformer';
+import { Merger } from './parts/Merger';
 
 import type {
   ConfiguratorFabricParams,
@@ -10,7 +10,7 @@ import type {
   DescriptionTuple,
   MergerFabricParams,
   SimpleDescriptions,
-} from 'types';
+} from './types';
 
 const validateConfiguratorParams = (params?: ConfiguratorFabricParams) => {
   if (!params || Object.keys(params).length === 0) {

@@ -1,8 +1,8 @@
-import { isObject } from 'helpers/isObject';
-import { isPromise } from 'helpers/isPromise';
+import { isObject } from '../helpers/isObject';
+import { isPromise } from '../helpers/isPromise';
 
 import type { UserConfigExport, UserConfigFnPromise, UserConfig } from 'vite';
-import type { AbstractMerger, MergeConfig } from 'types';
+import type { AbstractMerger, MergeConfig } from '../types';
 
 export class Merger implements AbstractMerger {
   readonly #mergeConfig: MergeConfig;

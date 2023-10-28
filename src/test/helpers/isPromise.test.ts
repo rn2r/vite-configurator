@@ -1,4 +1,4 @@
-import { isPromise } from 'helpers/isPromise';
+import { isPromise } from '../../helpers/isPromise';
 
 describe('isPromise', () => {
   it('should return true for a Promise', () => {

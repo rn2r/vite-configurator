@@ -1,8 +1,8 @@
-import { DescriptionTransformer } from 'parts/DescriptionTransformer';
-import { getWrongDescriptionTuples } from 'test/@utils/descriptions';
+import { getWrongDescriptionTuples } from '../@utils/descriptions';
+import { DescriptionTransformer } from '../../parts/DescriptionTransformer';
 
 import type { UserConfigFnPromise } from 'vite';
-import type { InnerCondition } from 'types';
+import type { InnerCondition } from '../../types';
 
 describe('DescriptionTransformer', () => {
   const defaultLabel = 'unknown';

@@ -1,5 +1,5 @@
-import { getConditionValidator } from 'helpers/getConditionValidator';
-import { getBasicWrongConditions } from 'test/@utils/conditions';
+import { getBasicWrongConditions } from '../@utils/conditions';
+import { getConditionValidator } from '../../helpers/getConditionValidator';
 
 describe('getConditionValidator', () => {
   const validator = getConditionValidator();

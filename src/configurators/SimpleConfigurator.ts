@@ -1,7 +1,7 @@
-import { isObject } from 'helpers/isObject';
 import { ExtendedConfigurator } from './ExtendedConfigurator';
+import { isObject } from '../helpers/isObject';
 
-import type { AbstractBaseConfigurator, DefinedRule, SimpleDescriptions } from 'types';
+import type { AbstractBaseConfigurator, DefinedRule, SimpleDescriptions } from '../types';
 
 export class SimpleConfigurator extends ExtendedConfigurator<[SimpleDescriptions]> {
   protected validate(descriptions: SimpleDescriptions): void {

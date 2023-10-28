@@ -4,9 +4,9 @@ import {
   createLabeledHandlers,
   createMerge,
   createSimpleHandlers,
-} from 'fabric';
-import { ConfigTransformer } from 'parts/ConfigTransformer';
-import { ConditionTransformer } from 'parts/ConditionTransformer';
+} from './fabric';
+import { ConfigTransformer } from './parts/ConfigTransformer';
+import { ConditionTransformer } from './parts/ConditionTransformer';
 
 const configTransformer = new ConfigTransformer();
 const conditionTransformer = new ConditionTransformer();

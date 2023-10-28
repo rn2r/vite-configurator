@@ -6,7 +6,7 @@ import type {
   DescriptionObject,
   SimpleDescriptions,
   DefinedRule,
-} from 'types';
+} from './types';
 
 export type {
   AbstractConfigTransformer,
@@ -18,10 +18,10 @@ export type {
   DefinedRule,
 };
 
-export * from 'api';
+export * from './api';
 export {
   createBasicHandlers,
   createLabeledHandlers,
   createSimpleHandlers,
   createMerge,
-} from 'fabric';
+} from './fabric';

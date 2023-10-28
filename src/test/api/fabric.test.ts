@@ -3,14 +3,14 @@ import {
   createLabeledHandlers,
   createMerge,
   createSimpleHandlers,
-} from 'fabric';
+} from '../../fabric';
 
 import type {
   AbstractConditionTransformer,
   AbstractConfigTransformer,
   ConfiguratorFabricParams,
   MergeConfig,
-} from 'types';
+} from '../../types';
 
 const conditionTransformer: AbstractConditionTransformer = {
   transform: () => () => Promise.resolve(true),

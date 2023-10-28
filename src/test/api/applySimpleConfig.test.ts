@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
-import { applySimpleConfig } from 'api';
-import { getValidConfigs } from 'test/@utils/configs';
+import { getValidConfigs } from '../@utils/configs';
+import { applySimpleConfig } from '../../api';
 
 import type { UserConfigExport, UserConfigFnPromise } from 'vite';
-import type { SimpleDescriptions } from 'types';
+import type { SimpleDescriptions } from '../../types';
 
 describe('applySimpleConfig', () => {
   const getDefine = (descriptions: SimpleDescriptions) => {

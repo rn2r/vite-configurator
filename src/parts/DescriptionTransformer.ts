@@ -6,7 +6,7 @@ import type {
   DescriptionTuple,
   InnerDescription,
   Condition,
-} from 'types';
+} from '../types';
 
 export class DescriptionTransformer implements AbstractDescriptionTransformer {
   readonly #configTransformer: AbstractConfigTransformer;
