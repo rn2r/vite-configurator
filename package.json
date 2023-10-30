@@ -1,6 +1,6 @@
 {
   "name": "vite-configurator",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Manage vite configurations with ease",
   "license": "MIT",
   "main": "dist/index.js",

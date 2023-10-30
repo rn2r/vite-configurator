@@ -18,7 +18,14 @@ export type {
   DefinedRule,
 };
 
-export * from './api';
+export {
+  applyConfig,
+  applyLabeledConfig,
+  applyMergedConfig,
+  applySimpleConfig,
+  merge,
+} from './api';
+
 export {
   createBasicHandlers,
   createLabeledHandlers,
