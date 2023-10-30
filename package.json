@@ -1,11 +1,12 @@
 {
   "name": "vite-configurator",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Manage vite configurations with ease",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
+  "type": "module",
   "files": [
     "dist",
     "!dist/test"
