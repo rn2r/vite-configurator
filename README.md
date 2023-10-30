@@ -4,7 +4,6 @@ vite-configurator
 <br>
 </h1>
 
-<p>Work in progress. Can be unstable.</p>
 <p>Manage vite configurations with ease</p>
 
 </div>
@@ -193,7 +192,7 @@ const condition = async (env: ConfigEnv) => {
 
 ### applySimpleConfig
 
-`(descriptions: SimpleDescriptions): UserConfigFnPromise`
+`(descriptions: SimpleDescriptions): UserConfigFn`
 
 There is the simplest way to work with the configurator. You just need to pass a `SimpleDescriptions` and it will apply the config if the condition (as object keys) is met. If no description matches the condition it will apply the empty config. In this case, the condition can be only one of predefined rules:
 
@@ -220,7 +219,7 @@ define({ command: 'serve', mode: 'production' }); // config resolves to { base: 
 
 ### applyLabeledConfig
 
-`(descriptions: Record<string, DescriptionObject>): UserConfigFnPromise`
+`(descriptions: Record<string, DescriptionObject>): UserConfigFn`
 
 If you want to provide your own conditions for configurations, you can use this function. It's the same as the `applySimpleConfig` but instead of predefined conditions for description, you required to provide your own `Description Object`.
 
@@ -254,7 +253,7 @@ So, if you have descriptions with conditions that can be met at the same time an
 
 ### applyConfig
 
-`(...descriptions: DescriptionTuple[]): UserConfigFnPromise`
+`(...descriptions: DescriptionTuple[]): UserConfigFn`
 
 There is the deepest way to work with the configurator. Now instead of passing a `DescriptionObject` you require to pass a list of `DescriptionTuple`. This is the same as the `DescriptionObject` but with the difference that the `Configuration` and `Condition` are just a part of the tuple. If you want you can provide a label for the description.
 
@@ -293,7 +292,7 @@ define({ command: 'serve', mode: 'development' }); // config resolves to {}
 
 ### applyMergedConfig
 
-`(...descriptions: DescriptionTuple[]): UserConfigFnPromise`
+`(...descriptions: DescriptionTuple[]): UserConfigFn`
 
 Usage of this function is the same as the `applyConfig` but the difference is that it will apply all descriptions that match their condition. The order of the descriptions is important. The last description will merged into the previous ones. The merging is done with vite `mergeConfig` function.
 
@@ -314,7 +313,7 @@ define({ command: 'build', mode: 'production' }); // config resolves to { base: 
 
 ### merge
 
-`(...configs: UserConfigExport, isRoot?: boolean): UserConfigFnPromise`
+`(...configs: UserConfigExport, isRoot?: boolean): UserConfigFn`
 
 This function is used to merge the configs. Differences from `mergeConfig` from the `vite`:
 

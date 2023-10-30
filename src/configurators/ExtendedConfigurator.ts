@@ -1,4 +1,4 @@
-import { UserConfigFnPromise } from 'vite';
+import { UserConfigFn } from 'vite';
 
 import type { AbstractBaseConfigurator } from '../types';
 
@@ -16,7 +16,7 @@ export abstract class ExtendedConfigurator<A extends any[]> {
     this.#configurator = configurator;
   }
 
-  handle(...args: A): UserConfigFnPromise {
+  handle(...args: A): UserConfigFn {
     return async (env) => {
       await this.validate(...args);
 

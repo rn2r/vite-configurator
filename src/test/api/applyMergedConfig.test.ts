@@ -4,13 +4,13 @@ import { getValidConfigs } from '../@utils/configs';
 import { getValidConditions, getAllWrongConditions } from '../@utils/conditions';
 import { applyMergedConfig } from '../../api';
 
-import type { UserConfig, UserConfigExport, UserConfigFnPromise } from 'vite';
+import type { UserConfig, UserConfigExport, UserConfigFn } from 'vite';
 import type { Condition, DescriptionTuple } from '../../types';
 
 describe('applyMergedConfig', () => {
   const getDefine = (...descriptions: DescriptionTuple[]) => {
     const appliedConfig = applyMergedConfig(...descriptions);
-    return defineConfig(appliedConfig) as UserConfigFnPromise;
+    return defineConfig(appliedConfig) as UserConfigFn;
   };
 
   it('should apply single config', async () => {

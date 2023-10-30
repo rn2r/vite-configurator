@@ -1,7 +1,7 @@
 import { isObject } from '../helpers/isObject';
 import { isPromise } from '../helpers/isPromise';
 
-import type { UserConfigExport, UserConfigFnPromise, UserConfig } from 'vite';
+import type { UserConfigExport, UserConfigFn, UserConfig } from 'vite';
 import type { AbstractMerger, MergeConfig } from '../types';
 
 export class Merger implements AbstractMerger {
@@ -27,7 +27,7 @@ export class Merger implements AbstractMerger {
     }
   }
 
-  merge(...args: UserConfigExport[] | [...UserConfigExport[], boolean]): UserConfigFnPromise {
+  merge(...args: UserConfigExport[] | [...UserConfigExport[], boolean]): UserConfigFn {
     return async (env) => {
       if (args.length === 0) {
         throw new Error('No configs for merge provided');

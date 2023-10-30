@@ -1,13 +1,13 @@
 import { getWrongDescriptionTuples } from '../@utils/descriptions';
 import { DescriptionTransformer } from '../../parts/DescriptionTransformer';
 
-import type { UserConfigFnPromise } from 'vite';
+import type { UserConfigFn } from 'vite';
 import type { InnerCondition } from '../../types';
 
 describe('DescriptionTransformer', () => {
   const defaultLabel = 'unknown';
 
-  const createTransformer = (config: UserConfigFnPromise, condition: InnerCondition) => {
+  const createTransformer = (config: UserConfigFn, condition: InnerCondition) => {
     const configTransformer = { transform: () => config };
     const conditionTransformer = { transform: () => condition };
 

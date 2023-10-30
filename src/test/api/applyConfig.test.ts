@@ -3,13 +3,13 @@ import { getValidConfigs } from '../@utils/configs';
 import { getValidConditions, getAllWrongConditions } from '../@utils/conditions';
 import { applyConfig } from '../../api';
 
-import type { UserConfigExport, UserConfigFnPromise } from 'vite';
+import type { UserConfigExport, UserConfigFn } from 'vite';
 import type { Condition, DescriptionTuple } from '../../types';
 
 describe('applyConfig', () => {
   const getDefine = (...descriptions: DescriptionTuple[]) => {
     const appliedConfig = applyConfig(...descriptions);
-    return defineConfig(appliedConfig) as UserConfigFnPromise;
+    return defineConfig(appliedConfig) as UserConfigFn;
   };
 
   it('should apply config', async () => {

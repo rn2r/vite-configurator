@@ -1,4 +1,4 @@
-import type { UserConfigExport, ConfigEnv, UserConfigFnPromise, UserConfig } from 'vite';
+import type { UserConfigExport, ConfigEnv, UserConfigFn, UserConfig } from 'vite';
 
 type EnvFn<T> = (env: ConfigEnv) => T;
 
@@ -64,7 +64,7 @@ export interface AbstractConditionTransformer {
 }
 
 export interface AbstractConfigTransformer {
-  transform(config: UserConfigExport): UserConfigFnPromise;
+  transform(config: UserConfigExport): UserConfigFn;
 }
 
 export interface AbstractDescriptionTransformer {
@@ -72,14 +72,12 @@ export interface AbstractDescriptionTransformer {
 }
 
 export interface AbstractBaseConfigurator {
-  handle(
-    ...args: DescriptionTuple[] | [...DescriptionTuple[], { merge: boolean }]
-  ): UserConfigFnPromise;
+  handle(...args: DescriptionTuple[] | [...DescriptionTuple[], { merge: boolean }]): UserConfigFn;
 }
 
 export interface AbstractMerger {
-  merge(...configs: [UserConfigExport, ...UserConfigExport[]]): UserConfigFnPromise;
-  merge(...args: [UserConfigExport, ...UserConfigExport[], boolean]): UserConfigFnPromise;
+  merge(...configs: [UserConfigExport, ...UserConfigExport[]]): UserConfigFn;
+  merge(...args: [UserConfigExport, ...UserConfigExport[], boolean]): UserConfigFn;
 }
 
 export type ConfiguratorFabricParams = {

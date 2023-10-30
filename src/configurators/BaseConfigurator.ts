@@ -1,6 +1,6 @@
 import { mergeConfig } from 'vite';
 
-import type { UserConfig, UserConfigFnPromise } from 'vite';
+import type { UserConfig, UserConfigFn } from 'vite';
 import type {
   AbstractBaseConfigurator,
   AbstractDescriptionTransformer,
@@ -45,7 +45,7 @@ export class BaseConfigurator implements AbstractBaseConfigurator {
     return [innerDescriptions, merge];
   }
 
-  #mergeConfigs(descriptions: InnerDescription[]): UserConfigFnPromise {
+  #mergeConfigs(descriptions: InnerDescription[]): UserConfigFn {
     return async (env) => {
       const configs: UserConfig[] = [];
       let idx = 0;
@@ -85,7 +85,7 @@ export class BaseConfigurator implements AbstractBaseConfigurator {
     };
   }
 
-  #selectOneConfig(descriptions: InnerDescription[]): UserConfigFnPromise {
+  #selectOneConfig(descriptions: InnerDescription[]): UserConfigFn {
     return (env) => {
       let idx = 0;
 
@@ -115,7 +115,7 @@ export class BaseConfigurator implements AbstractBaseConfigurator {
     };
   }
 
-  handle(...args: Parameters<AbstractBaseConfigurator['handle']>): UserConfigFnPromise {
+  handle(...args: Parameters<AbstractBaseConfigurator['handle']>): UserConfigFn {
     this.#validateArgs(args);
 
     const [descriptions, merge] = this.#getDescriptionsAndMergeOptions(args);

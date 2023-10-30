@@ -2,13 +2,13 @@ import { defineConfig } from 'vite';
 import { getValidConfigs } from '../@utils/configs';
 import { applySimpleConfig } from '../../api';
 
-import type { UserConfigExport, UserConfigFnPromise } from 'vite';
+import type { UserConfigExport, UserConfigFn } from 'vite';
 import type { SimpleDescriptions } from '../../types';
 
 describe('applySimpleConfig', () => {
   const getDefine = (descriptions: SimpleDescriptions) => {
     const appliedConfig = applySimpleConfig(descriptions);
-    return defineConfig(appliedConfig) as UserConfigFnPromise;
+    return defineConfig(appliedConfig) as UserConfigFn;
   };
 
   it('should apply dev config', async () => {
