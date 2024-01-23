@@ -2,6 +2,13 @@
 <h1>
 vite-configurator
 <br>
+<a href="https://github.com/rn2r/vite-configurator/actions/workflows/release.yml">
+<img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/rn2r/vite-configurator/release.yml?branch=main&style=flat&logo=github">
+</a>
+<a href="https://github.com/rn2r/vite-configurator/actions/workflows/release.yml">
+<img alt="Coveralls branch" src="https://img.shields.io/coverallsCoverage/github/rn2r/vite-configurator?style=flat&logo=coveralls">
+</a>
+<img alt="Static Badge" src="https://img.shields.io/badge/vite-%3E%3D3.0.0-1?style=flat">
 </h1>
 
 <p>Manage vite configurations with ease</p>
@@ -25,6 +32,14 @@ const config = merge(defaultConfig, applySimpleConfig({ dev: devConfig, build: p
 
 export default defineConfig(config);
 ```
+
+## Examples
+
+### Basic Usage
+
+<a href="https://stackblitz.com/edit/vite-configurator?embed=1&file=vite.config.ts">
+<img alt="Static Badge" src="https://img.shields.io/badge/look%20at%20stackblitz.com-1?style=for-the-badge&logo=stackblitz&color=%231389fd">
+</a>
 
 ## Table of Contents
 
@@ -239,7 +254,7 @@ const testsConfig: DescriptionObject = {
   condition: ({ mode }) => mode === 'test',
 };
 
-const define = defineConfig(applySimpleConfig({ firstConfig, testsConfig }));
+const define = defineConfig(applyLabeledConfig({ firstConfig, testsConfig }));
 
 define({ command: 'serve', mode: 'development' }); // config resolves to { base: 'first' }
 define({ command: 'build', mode: 'production' }); // config resolves to {}
