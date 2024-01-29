@@ -43,6 +43,9 @@ describe('LabeledConfigurator', () => {
       preview: {
         base: 'preview',
       },
+      test: {
+        base: 'test',
+      },
     };
 
     const define = configurator.handle(description);
@@ -51,7 +54,8 @@ describe('LabeledConfigurator', () => {
     expect(handle).toHaveBeenCalledWith(
       ['dev', { base: 'dev' }, 'dev'],
       ['build', { base: 'build' }, 'build'],
-      ['preview', { base: 'preview' }, 'preview']
+      ['preview', { base: 'preview' }, 'preview'],
+      ['test', { base: 'test' }, 'test']
     );
   });
 });

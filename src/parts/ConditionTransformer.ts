@@ -31,6 +31,10 @@ export class ConditionTransformer implements AbstractConditionTransformer {
       return command === 'serve' && mode === 'production';
     }
 
+    if (condition === 'test') {
+      return command === 'serve' && mode === 'test';
+    }
+
     return condition;
   }
 

@@ -37,21 +37,21 @@ export const getConditionValidator = () => {
   return {
     validateCondition(condition: any): void {
       validate(condition, {
-        allowed: ['boolean', 'dev', 'build', 'preview', 'function'],
+        allowed: ['boolean', 'dev', 'build', 'preview', 'test', 'function'],
         mayBePromise: true,
       });
     },
 
     validateFunctionResult(result: any): void {
       validate(result, {
-        allowed: ['boolean', 'dev', 'build', 'preview'],
+        allowed: ['boolean', 'dev', 'build', 'preview', 'test'],
         mayBePromise: true,
       });
     },
 
     validatePromiseResult(result: any): void {
       validate(result, {
-        allowed: ['boolean', 'dev', 'build', 'preview'],
+        allowed: ['boolean', 'dev', 'build', 'preview', 'test'],
         mayBePromise: false,
       });
     },

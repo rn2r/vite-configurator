@@ -13,10 +13,11 @@ type BooleanCondition = ObjectOrFnCondition<boolean>;
 
 /**
  * dev will be true when running with command: 'serve' and mode: 'development'
+ * preview will be true when running with command: 'test' and mode: 'developemnt'
  * build will be true when running with command: 'build' and mode: 'production'
  * preview will be true when running with command: 'serve' and mode: 'production'
  */
-export type DefinedRule = 'dev' | 'build' | 'preview';
+export type DefinedRule = 'dev' | 'test' | 'build' | 'preview';
 
 /**
  * An expression whose result is determined by a string equal to some defined rule
