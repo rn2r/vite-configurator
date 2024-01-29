@@ -99,6 +99,7 @@ In further documentation, the following pattern will be used:
 ```ts
 const define = defineConfig(config);
 define({ command: 'serve', mode: 'development' }); // for dev build example
+define({ command: 'serve', mode: 'test' }); // for test build example
 define({ command: 'build', mode: 'production' }); // for prod build example
 define({ command: 'serve', mode: 'production' }); // for preview build example
 ```
@@ -153,9 +154,9 @@ If you decide to use functions, you can use the `ConfigEnv` to get information a
 
 The condition is a rule that will be checked before the configuration is applied. It can be:
 
-1. In general boolean or string (`"build"`/`"dev"`/`"preview"`);
-2. Promise that resolves to boolean or string (`"build"`/`"dev"`/`"preview"`);
-3. Synchronous or asynchronous function that returns boolean or string (`"build"`/`"dev"`/`"preview"`);
+1. In general boolean or string (`"build"`/`"dev"`/`"test"`/`"preview"`);
+2. Promise that resolves to boolean or string (`"build"`/`"dev"`/`"test"`/`"preview"`);
+3. Synchronous or asynchronous function that returns boolean or string (`"build"`/`"dev"`/`"test"`/`"preview"`);
 
 > **Note**: vite-configurator strictly checks the type of the condition. If it's not one of the above types, it will throw an error. You should not depend on javascript's type conversion.
 
@@ -168,13 +169,14 @@ const condition = true;
 const condition = false;
 ```
 
-#### string (`"build"`/`"dev"`/`"preview"`)
+#### string (`"build"`/`"dev"`/`"test"`/`"preview"`)
 
 This type of condition will be met if the vite's environment command and mode are passed some of the rules.
 
 ```ts
 const condition = 'build'; // command: 'build', mode: 'production'
 const condition = 'dev'; // command: 'serve', mode: 'development'
+const condition = 'test'; // command: 'serve', mode: 'test'
 const condition = 'preview'; // command: 'serve', mode: 'production'
 ```
 
@@ -213,7 +215,8 @@ There is the simplest way to work with the configurator. You just need to pass a
 
 1. `"build"` - passes if vite command is `{ command: 'build', mode: 'production' }`
 2. `"dev"` - passes if vite command is `{ command: 'serve', mode: 'development' }`
-3. `"preview"` - passes if vite command is `{ command: 'serve', mode: 'production' }`
+3. `"test"` - passes if vite command is `{ command: 'serve', mode: 'test' }`
+4. `"preview"` - passes if vite command is `{ command: 'serve', mode: 'production' }`
 
 ```ts
 import { defineConfig } from 'vite';
@@ -222,12 +225,14 @@ import { applySimpleConfig } from 'vite-configurator';
 const define = defineConfig(
   applySimpleConfig({
     dev: { base: 'dev' },
+    test: { base: 'test' },
     build: () => ({ base: 'prod' }),
     preview: ({ command }) => Promise.resolve({ base: command }), // command will be 'serve' in this case
   })
 );
 
 define({ command: 'serve', mode: 'development' }); // config resolves to { base: 'dev' }
+define({ command: 'serve', mode: 'test' }); // config resolves to { base: 'test' }
 define({ command: 'build', mode: 'production' }); // config resolves to { base: 'prod' }
 define({ command: 'serve', mode: 'production' }); // config resolves to { base: 'serve' }
 ```
