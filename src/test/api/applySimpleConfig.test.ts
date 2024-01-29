@@ -16,6 +16,7 @@ describe('applySimpleConfig', () => {
       dev: { base: 'dev' },
       build: { base: 'build' },
       preview: { base: 'preview' },
+      test: { base: 'test' },
     });
     const result = await define({ command: 'serve', mode: 'development' });
 
@@ -27,6 +28,7 @@ describe('applySimpleConfig', () => {
       dev: { base: 'dev' },
       build: { base: 'build' },
       preview: { base: 'preview' },
+      test: { base: 'test' },
     });
     const result = await define({ command: 'build', mode: 'production' });
 
@@ -38,10 +40,23 @@ describe('applySimpleConfig', () => {
       dev: { base: 'dev' },
       build: { base: 'build' },
       preview: { base: 'preview' },
+      test: { base: 'test' },
     });
     const result = await define({ command: 'serve', mode: 'production' });
 
     expect(result).toEqual({ base: 'preview' });
+  });
+
+  it('should apply test config', async () => {
+    const define = getDefine({
+      dev: { base: 'dev' },
+      build: { base: 'build' },
+      preview: { base: 'preview' },
+      test: { base: 'test' },
+    });
+    const result = await define({ command: 'serve', mode: 'test' });
+
+    expect(result).toEqual({ base: 'test' });
   });
 
   it('should apply empty config if no one config matched', async () => {

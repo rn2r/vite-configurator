@@ -9,7 +9,7 @@ export class SimpleConfigurator extends ExtendedConfigurator<[SimpleDescriptions
       throw new Error('Invalid description provided');
     }
 
-    const validKeys = new Set<DefinedRule>(['dev', 'build', 'preview']);
+    const validKeys = new Set<DefinedRule>(['dev', 'test', 'build', 'preview']);
     for (const key in descriptions) {
       if (!validKeys.has(key as DefinedRule)) {
         throw new Error(`Invalid description provided: ${key}`);
